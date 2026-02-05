@@ -4,6 +4,7 @@ export type ItemId = string;
 
 export type RawItem = {
   id: ItemId;
+  type: "ball" | "equipment";
   name: string;
   description: string;
   dependencies?: ItemId[];

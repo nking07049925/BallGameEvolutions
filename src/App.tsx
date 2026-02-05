@@ -3,7 +3,7 @@ import itemSchema from "./assets/schema/itemSchema.json";
 import sheetSchema from "./assets/schema/sheetSchema.json";
 import type { RawEvolution, RawItem } from "./types/ItemSchema";
 import type { SpriteSheet } from "./types/SpriteSheetSchema";
-import { dictify } from "./util/Data";
+import { dictify, groupBy } from "./util/Data";
 import type { Item } from "./types/ItemSchema";
 // import { ItemIcon } from "./components/ItemIcon";
 import { ItemEvoTable } from "./components/ItemEvoTable";
@@ -11,12 +11,15 @@ import { ItemList } from "./components/ItemList";
 import { ItemEvoList } from "./components/ItemEvoList";
 import type { Evolution } from "./types/EvolutionInfo";
 import { ItemEvoTree } from "./components/ItemEvoTree";
-const itemData: RawItem[] = itemSchema.items;
+const itemData = itemSchema.items as RawItem[];
 const evolutionData: RawEvolution[] = itemSchema.evolutions;
-const sheetData: SpriteSheet[] = sheetSchema.sheets;
+const sheetData = sheetSchema.sheets as SpriteSheet[];
 
 const spriteList = sheetData.flatMap((sheet) => {
-  const imageUrl = new URL(sheet.image.location, import.meta.url).href;
+  const imageUrl = new URL(
+    `./assets/img/${sheet.image.location}`,
+    import.meta.url,
+  ).href;
   return sheet.sprites.map((sprite) => ({
     sprite,
     image: sheet.image,
@@ -46,6 +49,10 @@ const items = itemData.map<Item>((item) => {
   };
 });
 
+const grouped = groupBy(items, (item) => item.type);
+const balls = grouped.get("ball") ?? [];
+const equipment = grouped.get("equipment") ?? [];
+
 const itemsDict = dictify(items, (item) => item.id);
 
 const logItem = (itemId: string) =>
@@ -62,11 +69,17 @@ function App() {
     <>
       <h1>Ball x Game evolutions or whatever</h1>
       <h3>All items</h3>
-      <ItemList items={items} />
+      <h4>Balls</h4>
+      <ItemList items={balls} />
+      <h4>Equipment</h4>
+      <ItemList items={equipment} />
       <h3>Boring flat list</h3>
       <ItemEvoList evolutions={evolutions} />
       <h3>Evolution table</h3>
-      <ItemEvoTable items={items} evolutions={evolutions} />
+      <h4>Balls</h4>
+      <ItemEvoTable items={balls} evolutions={evolutions} />
+      <h4>Equipment</h4>
+      <ItemEvoTable items={equipment} evolutions={evolutions} />
       <h3>Evolution tree</h3>
       <ItemEvoTree evolutions={evolutions} />
     </>

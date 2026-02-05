@@ -22,7 +22,7 @@ export const ItemEvoTable = ({ items, evolutions }: ItemEvoTableProps) => {
       <tbody>
         <tr>
           <th></th>
-          <For each={items.slice(0, -1)}>
+          <For each={items}>
             {(item) => (
               <th>
                 <div class="item-icon-cell">
@@ -32,7 +32,7 @@ export const ItemEvoTable = ({ items, evolutions }: ItemEvoTableProps) => {
             )}
           </For>
         </tr>
-        <For each={reversed.slice(0, -1)}>
+        <For each={items}>
           {(row, i) => (
             <tr>
               <th>
@@ -40,7 +40,7 @@ export const ItemEvoTable = ({ items, evolutions }: ItemEvoTableProps) => {
                   <ItemIcon item={row} />
                 </div>
               </th>
-              <For each={items.slice(0, items.length - i() - 1)}>
+              <For each={items}>
                 {(column) => (
                   <td>
                     <div class="item-icon-cell">

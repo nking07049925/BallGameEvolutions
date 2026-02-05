@@ -13,9 +13,12 @@ export type SheetImage = {
   location: string;
   width: number;
   height: number;
+  baseWidth: number;
+  baseHeight: number;
 };
 
 export type SpriteSheet = {
+  type: "ball" | "equipment";
   image: SheetImage;
   sprites: Sprite[];
 };

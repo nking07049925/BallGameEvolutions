@@ -12,10 +12,22 @@ const itemToStyle = (
     spriteRegion: { x, y, w, h },
   } = item;
 
+  const widthScale = size / w;
+  const heightScale = size / h;
+
+  const xScale = width / w;
+  const yScale = height / h;
+
+  const normalizedX = x * widthScale;
+  const normalizedY = (height - y - h) * heightScale;
+
+  if (item.id == "baby rattle")
+    console.log("baby rattle", { normalizedX, normalizedY });
+
   return {
     "background-image": `url("${spriteImageUrl}")`,
-    "background-position": `${-(x / w) * size}px ${-(y / h) * size}px`,
-    "background-size": `${(width / w) * 100}% ${(height / h) * 100}%`,
+    "background-position": `${-normalizedX}px ${-normalizedY}px`,
+    "background-size": `${xScale * 100}% ${yScale * 100}%`,
     "image-rendering": "pixelated",
   };
 };
