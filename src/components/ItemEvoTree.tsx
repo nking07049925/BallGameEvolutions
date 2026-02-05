@@ -1,0 +1,128 @@
+import { For, Show } from "solid-js";
+import type { Item } from "../types/ItemSchema";
+import { ItemIcon } from "./ItemIcon";
+import type { Evolution } from "../types/EvolutionInfo";
+import { groupBy } from "../util/Data";
+
+export type ItemEvoTreeProps = {
+  evolutions: Evolution[];
+};
+type EvolutionPath = {
+  node: Item;
+  ingredients?: EvolutionPath[];
+  depth: number;
+  maxDepth: number;
+  span: number;
+  offset: number;
+};
+
+// every EvolutionPath represents a single way to assemble an item
+const buildEvolutionPath = (
+  node: Item,
+  map: Map<Item, Evolution[]>,
+  depth: number,
+): EvolutionPath[] => {
+  const current: EvolutionPath = {
+    node,
+    depth,
+    span: 1,
+    offset: 0,
+    maxDepth: 0,
+  };
+  const evolutions = map.get(node);
+  if (!evolutions) return [current];
+  return evolutions.flatMap((evolution) => {
+    // calc the outer product for all child recipes in case they decide to have
+    // multistage evos with multiple paths
+
+    return evolution.items // figure out all possible ways to make every child
+      .map((child) => buildEvolutionPath(child, map, depth + 1))
+      .reduce(
+        // expand the child varations
+        (trees: EvolutionPath[][], childs) =>
+          childs.flatMap((childTree) =>
+            trees.map((trees) => [...trees, childTree]),
+          ),
+        [[]],
+      )
+      .map((trees) => ({
+        ...current,
+        ingredients: trees,
+        span: trees.reduce((total, { span }) => total + span, 0),
+        maxDepth: trees.reduce(
+          (total, { maxDepth }) => Math.max(total, maxDepth + 1),
+          0,
+        ),
+        depth,
+      }));
+  });
+};
+
+const calcOffsets = (path: EvolutionPath, offset: number) => {
+  path.offset = offset;
+  path.ingredients?.forEach((item) => {
+    calcOffsets(item, offset);
+    offset += item.span;
+  });
+};
+
+const flattenPaths = (path: EvolutionPath, res: EvolutionPath[][]) => {
+  (res[path.depth] ??= []).push(path);
+  path.ingredients?.forEach((item) => flattenPaths(item, res));
+  return res;
+};
+
+export const ItemEvoTree = ({ evolutions }: ItemEvoTreeProps) => {
+  const resultMap = groupBy(evolutions, (evo) => evo.result);
+  const evolutionPaths = [...resultMap.keys()]
+    .flatMap((item) => buildEvolutionPath(item, resultMap, 0))
+    .filter(
+      (path) =>
+        path.maxDepth >= 2 ||
+        (path.ingredients && path.ingredients.length >= 3),
+    );
+  evolutionPaths.forEach((path) => calcOffsets(path, 0));
+  const flattened = evolutionPaths.map((path) => flattenPaths(path, []));
+  return (
+    <div
+      class="item-evo-tree"
+      style="display: flex; flex-direction: row; gap: 8px; flex-wrap: wrap"
+    >
+      <For each={flattened}>
+        {(path) => (
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <span>{path[0][0].node.name}</span>
+            <table style="height: fit-content">
+              <For each={path}>
+                {(row) => (
+                  <tr>
+                    <For each={row}>
+                      {(col, ind) => {
+                        const previous = row[ind() - 1];
+                        const spanDiff =
+                          col.offset -
+                          (previous ? previous.offset + previous.span : 0);
+                        return (
+                          <>
+                            <Show when={!!spanDiff}>
+                              <td colSpan={spanDiff}></td>
+                            </Show>
+                            <td colSpan={col.span}>
+                              <div class="item-icon-cell">
+                                <ItemIcon item={col.node} />
+                              </div>
+                            </td>
+                          </>
+                        );
+                      }}
+                    </For>
+                  </tr>
+                )}
+              </For>
+            </table>
+          </div>
+        )}
+      </For>
+    </div>
+  );
+};

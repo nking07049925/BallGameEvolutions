@@ -1,0 +1,41 @@
+{
+  "sheets": [
+    {
+      "image": {
+        "location": "./assets/img/sheet.png",
+        "width": 300,
+        "height": 300
+      },
+      "sprites": [
+        {
+          "id": "red",
+          "region": { "x": 0, "y": 0, "w": 100, "h": 100 }
+        },
+        {
+          "id": "green",
+          "region": { "x": 100, "y": 0, "w": 100, "h": 100 }
+        },
+        {
+          "id": "blue",
+          "region": { "x": 200, "y": 0, "w": 100, "h": 100 }
+        },
+        {
+          "id": "yellow",
+          "region": { "x": 0, "y": 100, "w": 100, "h": 100 }
+        },
+        {
+          "id": "magenta",
+          "region": { "x": 100, "y": 100, "w": 100, "h": 100 }
+        },
+        {
+          "id": "cyan",
+          "region": { "x": 200, "y": 100, "w": 100, "h": 100 }
+        },
+        {
+          "id": "white",
+          "region": { "x": 0, "y": 200, "w": 100, "h": 100 }
+        }
+      ]
+    }
+  ]
+}

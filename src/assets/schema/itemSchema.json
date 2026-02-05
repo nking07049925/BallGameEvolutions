@@ -1,0 +1,48 @@
+{
+  "items": [
+    {
+      "id": "red",
+      "name": "Red",
+      "description": "Here id have a description if i had"
+    },
+    {
+      "id": "green",
+      "name": "Green",
+      "description": "bruh broh"
+    },
+    {
+      "id": "blue",
+      "name": "Blue",
+      "description": "bruh broh"
+    },
+    {
+      "id": "yellow",
+      "name": "Yellow",
+      "description": "asdads"
+    },
+    {
+      "id": "magenta",
+      "name": "Magenta",
+      "description": "bruh broh"
+    },
+    {
+      "id": "cyan",
+      "name": "Cyan",
+      "description": "bruh broh"
+    },
+    {
+      "id": "white",
+      "name": "White",
+      "description": "bruh broh"
+    }
+  ],
+  "evolutions": [
+    { "items": ["red", "green"], "result": "yellow" },
+    { "items": ["red", "blue"], "result": "magenta" },
+    { "items": ["blue", "green"], "result": "cyan" },
+    { "items": ["yellow", "blue"], "result": "white" },
+    { "items": ["green", "magenta"], "result": "white" },
+    { "items": ["cyan", "red"], "result": "white" },
+    { "items": ["red", "green", "blue"], "result": "white" }
+  ]
+}
