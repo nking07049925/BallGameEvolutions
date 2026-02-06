@@ -9,12 +9,19 @@ import {
   passiveEvolutions,
 } from "./data/Evolutions";
 import { ItemEvoListGrouped } from "./components/ItemEvoListGrouped";
+import { ItemIcon } from "./components/ItemIcon";
 
 function App() {
   return (
     <>
       <header class="title">
-        <h1>Ball x Game evolutions or whatever</h1>
+        <h1 style="display: flex; gap: 16px">
+          <ItemIcon
+            item={balls[Math.floor(Math.random() * balls.length)]}
+            size={64}
+          />
+          Ball x Pit Evolution Explorer
+        </h1>
       </header>
 
       <div class="body">
@@ -24,13 +31,11 @@ function App() {
         <h3>Passives</h3>
         <ItemList items={passives} />
 
-        <h2>No longer boring flat list</h2>
+        <h2>Evolution list</h2>
         <ItemEvoListGrouped evolutions={evolutions} items={balls} />
 
         <h2>Evolution table</h2>
-        <div style="width: 100%; overflow: auto">
-          <ItemEvoTable items={balls} evolutions={evolutions} />
-        </div>
+        <ItemEvoTable items={balls} evolutions={evolutions} />
 
         <h2>Evolution tree</h2>
         <h3>Balls</h3>

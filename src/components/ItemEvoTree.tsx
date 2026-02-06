@@ -75,6 +75,52 @@ const flattenPaths = (path: EvolutionPath, res: EvolutionPath[][]) => {
   return res;
 };
 
+const PathTree = ({ path }: { path: EvolutionPath }) => {
+  const flattened = flattenPaths(path, []);
+  return (
+    <table style="height: fit-content">
+      <thead>
+        <tr>
+          <th class="item-text" colSpan={path.span}>
+            {path.node.name}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <For each={flattened}>
+          {(row) => (
+            <tr>
+              <For each={row}>
+                {(col, ind) => {
+                  const previous = row[ind() - 1];
+                  const spanDiff =
+                    col.offset -
+                    (previous ? previous.offset + previous.span : 0);
+                  return (
+                    <>
+                      <Show when={!!spanDiff}>
+                        <td colSpan={spanDiff} class="empty"></td>
+                      </Show>
+                      <td colSpan={col.span}>
+                        <div class="item-icon-cell">
+                          <ItemIcon
+                            item={col.node}
+                            size={32 + 16 * col.maxDepth}
+                          />
+                        </div>
+                      </td>
+                    </>
+                  );
+                }}
+              </For>
+            </tr>
+          )}
+        </For>
+      </tbody>
+    </table>
+  );
+};
+
 export const ItemEvoTree = ({
   evolutions,
   minimumDepth,
@@ -98,58 +144,12 @@ export const ItemEvoTree = ({
       b.maxDepth - a.maxDepth ||
       (b.ingredients?.length ?? 0) - (a.ingredients?.length ?? 0),
   );
-  const flattened = evolutionPaths.map((path) => flattenPaths(path, []));
   return (
     <div
       class="item-evo-tree"
       style="display: flex; flex-direction: row; gap: 8px; flex-wrap: wrap"
     >
-      <For each={flattened}>
-        {(path) => (
-          <div style="display: flex; flex-direction: column; gap: 4px">
-            <table style="height: fit-content">
-              <thead>
-                <tr>
-                  <th class="item-text" colSpan={path[0][0].span}>
-                    {path[0][0].node.name}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <For each={path}>
-                  {(row) => (
-                    <tr>
-                      <For each={row}>
-                        {(col, ind) => {
-                          const previous = row[ind() - 1];
-                          const spanDiff =
-                            col.offset -
-                            (previous ? previous.offset + previous.span : 0);
-                          return (
-                            <>
-                              <Show when={!!spanDiff}>
-                                <td colSpan={spanDiff} class="empty"></td>
-                              </Show>
-                              <td colSpan={col.span}>
-                                <div class="item-icon-cell">
-                                  <ItemIcon
-                                    item={col.node}
-                                    size={50 + 25 * col.maxDepth}
-                                  />
-                                </div>
-                              </td>
-                            </>
-                          );
-                        }}
-                      </For>
-                    </tr>
-                  )}
-                </For>
-              </tbody>
-            </table>
-          </div>
-        )}
-      </For>
+      <For each={evolutionPaths}>{(path) => <PathTree path={path} />}</For>
     </div>
   );
 };

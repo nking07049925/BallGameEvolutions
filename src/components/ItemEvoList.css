@@ -22,8 +22,8 @@
   background-color: #00000020;
 }
 .item-evo-grouped {
-  min-width: 320px;
-  columns: 320px auto;
+  min-width: 250px;
+  columns: 250px auto;
 }
 .item-evo-grouped .item-evo-list {
   width: 100%;
