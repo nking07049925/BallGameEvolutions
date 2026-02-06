@@ -1,5 +1,5 @@
 import { type JSX } from "solid-js";
-import type { Item } from "../types/ItemSchema";
+import type { Item } from "../data/Items";
 
 const itemToStyle = (
   item: Item | undefined,
@@ -12,17 +12,19 @@ const itemToStyle = (
     spriteRegion: { x, y, w, h },
   } = item;
 
-  const widthScale = size / w;
-  const heightScale = size / h;
+  const maxSize = Math.max(w, h) - 1;
 
-  const xScale = width / w;
-  const yScale = height / h;
+  const widthScale = size / maxSize;
+  const heightScale = size / maxSize;
 
-  const normalizedX = x * widthScale;
-  const normalizedY = (height - y - h) * heightScale;
+  const xScale = (width * widthScale) / size;
+  const yScale = (height * heightScale) / size;
 
-  if (item.id == "baby rattle")
-    console.log("baby rattle", { normalizedX, normalizedY });
+  const xOffset = (w - maxSize + 1) / 2;
+  const yOffset = (h - maxSize) / 2 - h;
+
+  const normalizedX = (x + xOffset) * widthScale;
+  const normalizedY = (height - y + yOffset) * heightScale;
 
   return {
     "background-image": `url("${spriteImageUrl}")`,
@@ -45,6 +47,7 @@ export const ItemIcon = ({ item, size }: ItemIconProps) => {
       class="item-icon"
       title={item?.name ?? "Missing item"}
       style={{
+        display: "inline-block",
         width: `${size}px`,
         height: `${size}px`,
         ...itemToStyle(item, size),

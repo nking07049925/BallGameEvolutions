@@ -1,8 +1,8 @@
 import { For } from "solid-js";
-import type { Item } from "../types/ItemSchema";
 import { ItemIcon } from "./ItemIcon";
-import type { Evolution } from "../types/EvolutionInfo";
 import { Map2 } from "../util/Data";
+import type { Item } from "../data/Items";
+import type { Evolution } from "../data/Evolutions";
 
 export type ItemEvoTableProps = {
   items: Item[];
@@ -13,16 +13,18 @@ export const ItemEvoTable = ({ items, evolutions }: ItemEvoTableProps) => {
     .filter(({ items }) => items.length == 2)
     .reduce(
       (map, { items: [first, second], result: result }) =>
-        map.set(first, second, result),
+        map.set(first, second, result) && map.set(second, first, result),
       new Map2<Item, Item, Item>(),
     );
-  const reversed = [...items].reverse();
+
+  const filtered = items.filter((item) => double.has(item));
+
   return (
     <table class="item-evo-table">
       <tbody>
         <tr>
           <th></th>
-          <For each={items}>
+          <For each={filtered}>
             {(item) => (
               <th>
                 <div class="item-icon-cell">
@@ -32,23 +34,19 @@ export const ItemEvoTable = ({ items, evolutions }: ItemEvoTableProps) => {
             )}
           </For>
         </tr>
-        <For each={items}>
-          {(row, i) => (
+        <For each={filtered}>
+          {(row) => (
             <tr>
               <th>
                 <div class="item-icon-cell">
                   <ItemIcon item={row} />
                 </div>
               </th>
-              <For each={items}>
+              <For each={filtered}>
                 {(column) => (
                   <td>
                     <div class="item-icon-cell">
-                      <ItemIcon
-                        item={
-                          double.get(row, column) ?? double.get(column, row)
-                        }
-                      />
+                      <ItemIcon item={double.get(row, column)} />
                     </div>
                   </td>
                 )}

@@ -1,0 +1,12 @@
+.item-evo-tree table {
+  border-spacing: 4px;
+}
+.item-evo-tree tr {
+  background-color: transparent;
+}
+.item-evo-tree td {
+  background-color: #00000020;
+}
+.item-evo-tree td.empty {
+  background-color: transparent;
+}

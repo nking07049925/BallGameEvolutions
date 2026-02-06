@@ -6,27 +6,36 @@ const spriteFiles = readdirSync(`${basePath}/Assets/Sprite`);
 // const spriteAtlases = readdirSync(`${basePath}/Assets/SpriteAtlas`);
 // const mainAtlasName = "EquipmentPortraitAtlas.json";
 
+// node scripts/assetParser.js .../Downloads/BallXPitAssets
+
 const atlases = [
   {
     type: "ball",
-    pattern: /ball_icon_([\w\s]+).json/,
+    pattern: /ball_icon_(.+)\.json/,
     texture: "T_Equipment_Icon_Atlas.png",
     width: 512,
     height: 512,
   },
   {
     type: "ball",
-    pattern: /postlaunch_balls_([\w\s]+).json/,
+    pattern: /postlaunch_balls_(.+)\.json/,
     texture: "postlaunch_balls.png",
+    width: 300,
+    height: 250,
+  },
+  {
+    type: "passives",
+    pattern: /passive_icon_(.+)\.json/,
+    texture: "T_Equipment_Icon_Atlas.png",
     width: 512,
     height: 512,
   },
   {
-    type: "equipment",
-    pattern: /passive_icon_([\w\s]+).json/,
-    texture: "T_Equipment_Icon_Atlas.png",
-    width: 300,
-    height: 250,
+    type: "passives",
+    pattern: /passive_(?!icon_)(.+)\.json/,
+    texture: "DLC_passive_sheet.png",
+    width: 150,
+    height: 50,
   },
 ];
 

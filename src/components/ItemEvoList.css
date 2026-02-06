@@ -1,6 +1,35 @@
 .ingredients {
   display: flex;
   flex-direction: row;
-  gap: 4px;
+  gap: 6px;
   align-items: center;
+  font-size: 20px;
+  padding: 4px 16px;
+  background-color: #00000020;
+  width: fit-content;
+}
+.item-evo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: fit-content;
+  flex-wrap: wrap;
+  max-height: 600px;
+}
+
+.item-evo-group {
+  padding: 0 16px 16px 16px;
+  background-color: #00000020;
+}
+.item-evo-grouped .item-evo-list {
+  width: 100%;
+}
+.item-evo-grouped .ingredients {
+  width: unset;
+  justify-content: space-evenly;
+}
+.item-evo-grouped h3 {
+  background-color: #00000040;
+  margin: 0;
+  padding: 16px;
 }

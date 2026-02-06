@@ -1,6 +1,6 @@
 import { For } from "solid-js";
-import type { Item } from "../types/ItemSchema";
 import { ItemIcon } from "./ItemIcon";
+import type { Item } from "../data/Items";
 
 export type ItemListProps = {
   items: Item[];

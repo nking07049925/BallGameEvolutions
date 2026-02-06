@@ -2,25 +2,52 @@ export const dictify = <TValue, TKey>(
   data: TValue[],
   getKey: (obj: TValue) => TKey,
 ) => new Map(data.map((obj) => [getKey(obj), obj]));
+
 export const groupBy = <TValue, TKey>(
   data: TValue[],
   getKey: (obj: TValue) => TKey,
 ) => {
-  const map = new Map<TKey, TValue[]>();
-  data.forEach((obj) => {
-    const key = getKey(obj);
-    let arr = map.get(key);
+  const dict = new ArrayDict<TKey, TValue>();
+  data.forEach((obj) => dict.add(getKey(obj), obj));
+  return dict;
+};
+
+export class ArrayDict<TKey, TValue> {
+  private map: Map<TKey, TValue[]> = new Map();
+  set(key: TKey, value: TValue[]) {
+    this.map.set(key, value);
+    return this;
+  }
+  add(key: TKey, value: TValue) {
+    let arr = this.map.get(key);
     if (!arr) {
       arr = [];
-      map.set(key, arr);
+      this.map.set(key, arr);
     }
-    arr.push(obj);
-  });
-  return map;
-};
+    arr.push(value);
+    return this;
+  }
+  get(key: TKey) {
+    return this.map.get(key);
+  }
+  keys() {
+    return this.map.keys();
+  }
+  has(key: TKey) {
+    return this.map.has(key);
+  }
+}
 
 export class Map2<Key1, Key2, Value> {
   private map: Map<Key1, Map<Key2, Value>> = new Map();
+  has(key1: Key1) {
+    return this.map.has(key1);
+  }
+
+  has2(key1: Key1, key2: Key2) {
+    return !!this.map.get(key1)?.has(key2);
+  }
+
   get(key1: Key1, key2: Key2) {
     return this.map.get(key1)?.get(key2);
   }

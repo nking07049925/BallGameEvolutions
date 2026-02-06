@@ -1,11 +1,30 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  margin: 0;
+  width: 100vw;
 }
 
 .card {
   padding: 2em;
+}
+
+.title {
+  padding: 32px 64px;
+  background-color: #00000020;
+}
+
+.body {
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+footer {
+  padding: 32px 64px;
+  background-color: #00000020;
+}
+
+.title h1 {
+  margin: 0;
 }
 
 table {
@@ -18,6 +37,12 @@ table th {
 table .item-text {
   padding: 4px 8px;
 }
+
+td,
+th {
+  padding: 4px;
+}
+
 table tr {
   background-color: #00000020;
 }
