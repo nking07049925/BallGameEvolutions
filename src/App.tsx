@@ -7,7 +7,7 @@ import { evolutions, ballEvolutions, passiveEvolutions } from "./data/Items";
 import { ItemEvoListGrouped } from "./components/ItemEvoListGrouped";
 import { ItemIcon } from "./components/ItemIcon";
 import { For, type JSX } from "solid-js";
-import { A, Router, useParams } from "@solidjs/router";
+import { A, HashRouter, useParams } from "@solidjs/router";
 import { ItemCard } from "./components/ItemCard";
 
 type Route = {
@@ -125,8 +125,8 @@ const Layout = (props: { children?: JSX.Element }) => (
 );
 
 const App = () => (
-  <Router root={Layout} base={import.meta.env.BASE_URL}>
+  <HashRouter root={Layout} base={import.meta.env.BASE_URL}>
     {routes}
-  </Router>
+  </HashRouter>
 );
 export default App;
