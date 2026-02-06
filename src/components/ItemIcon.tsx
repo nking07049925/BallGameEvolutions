@@ -40,7 +40,7 @@ export type ItemIconProps = {
   showTooltip?: boolean;
 };
 export const ItemIcon = ({ item, size }: ItemIconProps) => {
-  size ??= 50;
+  size ??= 32;
 
   return (
     <div

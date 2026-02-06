@@ -37,7 +37,7 @@ export const ItemEvoListGrouped = ({
                 <ItemEvoList evolutions={evolvesFrom.get(item)!} />
               </Show>
               <Show when={evolvesInto.has(item)}>
-                <h4>Evolves into</h4>
+                <h4>Synergizes with</h4>
                 <ItemEvoList evolutions={evolvesInto.get(item)!} />
               </Show>
             </div>
