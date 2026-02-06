@@ -124,5 +124,9 @@ const Layout = (props: { children?: JSX.Element }) => (
   </>
 );
 
-const App = () => <Router root={Layout}>{routes}</Router>;
+const App = () => (
+  <Router root={Layout} base={import.meta.env.BASE_URL}>
+    {routes}
+  </Router>
+);
 export default App;

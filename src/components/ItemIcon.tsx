@@ -1,5 +1,6 @@
 import { mergeProps, type JSX } from "solid-js";
 import type { Item } from "../data/Items";
+import { A } from "@solidjs/router";
 
 type StyleProps = { size: number; item?: Item };
 
@@ -42,7 +43,7 @@ export const ItemIcon = (props: ItemIconProps) => {
   const merged = mergeProps({ size: 32 }, props);
 
   return (
-    <a
+    <A
       href={`/items/${props.item?.id ?? "Invalid item"}`}
       class="item-icon"
       title={props.item?.name ?? "Missing item"}
