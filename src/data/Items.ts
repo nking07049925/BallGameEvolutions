@@ -517,289 +517,433 @@ export const itemData = typeWrap([
   // { id: "zombie", name: "Zombie", description: "", type: "ball" },
   {
     id: "archers effigy",
-    name: "Archers Effigy",
-    description: "",
+    name: "Archer's Effigy",
+    description:
+      "Every 7-12 rows, spawn a stone archer with 160 health on your side. Stone archers are immune to ball damage and shoot arrows at enemies, dealing 10-20 each.",
     type: "passive",
   },
-  { id: "arrow", name: "Arrow", description: "", type: "passive" },
+  // { id: "arrow", name: "Arrow", description: "", type: "passive" },
   {
     id: "artificial heart",
     name: "Artificial Heart",
-    description: "",
+    description: "Friendly pieces gain 100% more health.",
     type: "passive",
   },
-  { id: "artillery", name: "Artillery", description: "", type: "passive" },
-  { id: "baby rattle", name: "Baby Rattle", description: "", type: "passive" },
+  {
+    id: "artillery",
+    name: "Grotesque Artillery",
+    description:
+      "Floats around your character and shoots a random level 1 unevolved special ball at enemies every 8.0 seconds.",
+    type: "passive",
+  },
+  {
+    id: "baby rattle",
+    name: "Baby Rattle",
+    description: "Gain 1.5x baby balls, but your aim becomes scattered.",
+    type: "passive",
+  },
   {
     id: "bandage roll",
     name: "Bandage Roll",
-    description: "",
+    description: "Shoot 1-2 baby balls each time you're healed.",
     type: "passive",
   },
   {
     id: "bottled tornado",
     name: "Bottled Tornado",
-    description: "",
+    description:
+      "When you catch a special ball, automatically shoot 1-3 new baby balls in random directions.",
     type: "passive",
   },
-  { id: "breastplate", name: "Breastplate", description: "", type: "passive" },
-  { id: "cornucopia", name: "Cornucopia", description: "", type: "passive" },
+  {
+    id: "breastplate",
+    name: "Breastplate",
+    description: "Decrease damage taken by 10%.",
+    type: "passive",
+  },
+  {
+    id: "cornucopia",
+    name: "Cornucopia",
+    description:
+      "Each time baby balls are created, spawn 0-1 additional baby balls.",
+    type: "passive",
+  },
   {
     id: "crown of thorns",
-    name: "Crown Of Thorns",
-    description: "",
+    name: "Crown of Thorns",
+    description:
+      "Destroy the 2 nearest enemies when you are hit from close range.",
     type: "passive",
   },
   {
     id: "cursed elixir",
     name: "Cursed Elixir",
-    description: "",
+    description:
+      "When a poisoned enemy dies, 10% chance for them to come back as a zombie with 240 health that moves up the board and fights enemies.",
     type: "passive",
   },
   {
     id: "deadeyes amulet",
-    name: "Deadeyes Amulet",
-    description: "",
+    name: "Deadeye's Amulet",
+    description: "Critical hits deal 10-15 bonus damage.",
     type: "passive",
   },
   {
     id: "deadeyes cross",
-    name: "Deadeyes Cross",
-    description: "",
+    name: "Deadeye's Cross",
+    description: "Increase critical hit chance to 60%.",
     type: "passive",
   },
-  { id: "detonator", name: "Detonator", description: "", type: "passive" },
+  // { id: "detonator", name: "Detonator", description: "", type: "passive" },
   {
     id: "diamond hilted dagger",
     name: "Diamond Hilted Dagger",
-    description: "",
+    description:
+      "Increase crit chance to 20% when hitting enemies in the front.",
     type: "passive",
   },
-  { id: "dumbbell", name: "Dumbbell", description: "", type: "passive" },
-  { id: "dynamite", name: "Dynamite", description: "", type: "passive" },
+  // { id: "dumbbell", name: "Dumbbell", description: "", type: "passive" },
+  {
+    id: "dynamite",
+    name: "Dynamite",
+    description:
+      "Every 5-10 rows, spawn an enemy with dynamite attached to them. Destroying them will deal 200-500 damage to nearby enemies.",
+    type: "passive",
+  },
   {
     id: "emerald hilted dagger",
     name: "Emerald Hilted Dagger",
-    description: "",
+    description:
+      "Increase crit chance to 20% when hitting enemies on their right side.",
     type: "passive",
   },
   {
     id: "ethereal cloak",
     name: "Ethereal Cloak",
-    description: "",
+    description:
+      "Balls go through enemies and deal 25% bonus damage until they hit the back of the field.",
     type: "passive",
   },
   {
     id: "everflowing goblet",
     name: "Everflowing Goblet",
-    description: "",
+    description: "You can heal past your max health at 20% efficiency",
     type: "passive",
   },
   {
     id: "eye of the beholder",
-    name: "Eye Of The Beholder",
-    description: "",
+    name: "Eye of the Beholder",
+    description: "10% chance to dodge incoming attacks.",
     type: "passive",
   },
-  { id: "fleet feet", name: "Fleet Feet", description: "", type: "passive" },
+  {
+    id: "fleet feet",
+    name: "Fleet Feet",
+    description:
+      "Increase movement speed by 10% and move at full speed while shooting.",
+    type: "passive",
+  },
   {
     id: "frozen spike",
     name: "Frozen Spike",
-    description: "",
+    description:
+      "When an enemy is frozen, they emit a chill to nearby enemies that deals 10-20 damage.",
     type: "passive",
   },
-  { id: "gemspring", name: "Gemspring", description: "", type: "passive" },
+  {
+    id: "gemspring",
+    name: "Gemspring",
+    description:
+      "Every 7-11 rows, spawn a Gemspring. Dealing damage to them causes them to drop an increasing amount of XP gems.",
+    type: "passive",
+  },
   {
     id: "ghostly corset",
     name: "Ghostly Corset",
-    description: "",
+    description:
+      "Balls go through enemies and deal 20% bonus damage when hitting them from the side.",
     type: "passive",
   },
   {
     id: "ghostly shield",
     name: "Ghostly Shield",
-    description: "",
+    description: "Balls go through allies and heal them for 2 health.",
     type: "passive",
   },
-  { id: "golden bull", name: "Golden Bull", description: "", type: "passive" },
+  {
+    id: "golden bull",
+    name: "Golden Bull",
+    description:
+      "Every 7-11 rows, spawn a golden bull with 400 health on your side. Golden bulls accrue 10 gold per minute. They also move up the field, blocking and attacking enemies in the way.",
+    type: "passive",
+  },
   {
     id: "gracious impaler",
     name: "Gracious Impaler",
-    description: "",
+    description: "Critical hits have a 5% chance to instantly kill enemies.",
     type: "passive",
   },
-  { id: "hammer", name: "Hammer", description: "", type: "passive" },
-  { id: "hand fan", name: "Hand Fan", description: "", type: "passive" },
-  { id: "hand mirror", name: "Hand Mirror", description: "", type: "passive" },
+  // { id: "hammer", name: "Hammer", description: "", type: "passive" },
+  {
+    id: "hand fan",
+    name: "Hand Fan",
+    description: "Slow down enemies in the same column as you by 50%.",
+    type: "passive",
+  },
+  {
+    id: "hand mirror",
+    name: "Hand Mirror",
+    description:
+      "Projectiles have a 50% chance to reflect upon hitting you, dealing 20-40 damage if they hit an enemy.",
+    type: "passive",
+  },
   {
     id: "healers effigy",
     name: "Healers Effigy",
-    description: "",
+    description:
+      "Every 7-12 rows, spawn a stone healer with 100 health on your side, which heals you 10 health per minute while it's on the field. Healers are immune to ball damage and move up the field, blocking and attacking enemies in the way.",
     type: "passive",
   },
-  { id: "hourglass", name: "Hourglass", description: "", type: "passive" },
-  { id: "impaler", name: "Impaler", description: "", type: "passive" },
-  { id: "irononesie", name: "Irononesie", description: "", type: "passive" },
+  {
+    id: "hourglass",
+    name: "Hourglass",
+    description:
+      "Balls deal 150% damage, but damage decays by 30% each time they bounce (minimum 50%).",
+    type: "passive",
+  },
+  {
+    id: "impaler",
+    name: "Deadeye's Impaler",
+    description:
+      "Increase critical hit chance to 5%. Critical hits instantly kill non-boss enemies..",
+    type: "passive",
+  },
+  {
+    id: "irononesie",
+    name: "Iron Onesie",
+    description: "Balls deal 0.5% more damage for each baby ball on the field.",
+    type: "passive",
+  },
   {
     id: "kiss of death",
-    name: "Kiss Of Death",
-    description: "",
+    name: "Kiss of Death",
+    description: "Charmed enemies have a 10% chance of dying after recovering.",
     type: "passive",
   },
   {
     id: "lovers quiver",
-    name: "Lovers Quiver",
-    description: "",
+    name: "Lover's Quiver",
+    description:
+      "Projectiles have a 40% chance to heal you for 1 health instead of hurting you.",
     type: "passive",
   },
-  { id: "magic staff", name: "Magic Staff", description: "", type: "passive" },
-  { id: "magnet", name: "Magnet", description: "", type: "passive" },
+  {
+    id: "magic staff",
+    name: "Magic Staff",
+    description:
+      "Increase area-of-effect damage (such as earthquake, laser, and lightning) by 20%.",
+    type: "passive",
+  },
+  {
+    id: "magnet",
+    name: "Magnet",
+    description:
+      "Increase range at which you pick up items and catch balls by 1.0 tiles.",
+    type: "passive",
+  },
   {
     id: "midnight oil",
     name: "Midnight Oil",
-    description: "",
+    description:
+      "Balls that hit flaming enemies light on fire and deal 10-20 bonus fire damage on the next hit.",
     type: "passive",
   },
   {
     id: "odiferous shell",
     name: "Odiferous Shell",
-    description: "",
+    description:
+      "When you touch enemies, they have a 50% chance of instantly dying.",
     type: "passive",
   },
   {
     id: "phantom regalia",
     name: "Phantom Regalia",
-    description: "",
+    description:
+      "Balls go through enemies until they hit the back wall. Balls deal 50% more damage when going through enemies.",
     type: "passive",
   },
   {
     id: "pressure valve",
     name: "Pressure Valve",
-    description: "",
+    description:
+      "Enemies explode on death, dealing 20-30 damage to adjacent enemies.",
     type: "passive",
   },
   {
     id: "protective charm",
     name: "Protective Charm",
-    description: "",
+    description:
+      "Gain a shield that blocks the next damage you would receive. Recharges after 60 seconds.",
     type: "passive",
   },
   {
     id: "radiant feather",
     name: "Radiant Feather",
-    description: "",
+    description:
+      "Increases ball launch speed by 20%, but get knocked back a little each time you shoot a ball.",
     type: "passive",
   },
-  { id: "rapier", name: "Rapier", description: "", type: "passive" },
+  // { id: "rapier", name: "Rapier", description: "", type: "passive" },
   {
     id: "reachers spear",
-    name: "Reachers Spear",
-    description: "",
+    name: "Reacher's Spear",
+    description:
+      "Increase crit chance to 20% when hitting enemies in the same column as you.",
     type: "passive",
   },
   {
     id: "rubber headband",
     name: "Rubber Headband",
-    description: "",
+    description:
+      "Balls start off at 70% speed but increase by 20% each bounce (max 200%).",
     type: "passive",
   },
   {
     id: "ruby hilted dagger",
     name: "Ruby Hilted Dagger",
-    description: "",
+    description:
+      "Increase crit chance to 15% when hitting enemies in the back.",
     type: "passive",
   },
   {
     id: "sapphire hilted dagger",
     name: "Sapphire Hilted Dagger",
-    description: "",
+    description:
+      "Increase crit chance to 30% when hitting enemies on their left side.",
     type: "passive",
   },
-  { id: "shortbow", name: "Shortbow", description: "", type: "passive" },
+  {
+    id: "shortbow",
+    name: "Shortbow",
+    description: "Increase fire rate by 15%.",
+    type: "passive",
+  },
   {
     id: "silver blindfold",
     name: "Silver Blindfold",
-    description: "",
+    description: "Increase crit chance to 20% when hitting blinded enemies.",
     type: "passive",
   },
   {
     id: "silver bullet",
     name: "Silver Bullet",
-    description: "",
+    description: "Balls deal 20% bonus damage until they hit a wall.",
     type: "passive",
   },
-  { id: "slingshot", name: "Slingshot", description: "", type: "passive" },
-  { id: "soul reaver", name: "Soul Reaver", description: "", type: "passive" },
+  {
+    id: "slingshot",
+    name: "Slingshot",
+    description: "25% chance to launch a baby ball when you pick up a gem.",
+    type: "passive",
+  },
+  {
+    id: "soul reaver",
+    name: "Soul Reaver",
+    description:
+      "Each kill heals you by 1 and you can heal past your max health at 30% efficiency.",
+    type: "passive",
+  },
   {
     id: "spiked collar",
     name: "Spiked Collar",
-    description: "",
+    description:
+      "Deal 30-50 to enemies the first time you get into their melee attack range.",
     type: "passive",
   },
   {
     id: "stone effigy",
     name: "Stone Effigy",
-    description: "",
+    description:
+      "Every 7-12 rows, spawn a stone soldier with 200 health on your side. Stone soldiers are immune to ball damage and move up the field, blocking and attacking enemies in the way.",
     type: "passive",
   },
-  { id: "stopwatch", name: "Stopwatch", description: "", type: "passive" },
-  {
-    id: "swordbreaker",
-    name: "Swordbreaker",
-    description: "",
-    type: "passive",
-  },
-  { id: "tire", name: "Tire", description: "", type: "passive" },
+  // { id: "stopwatch", name: "Stopwatch", description: "", type: "passive" },
+  // {
+  //   id: "swordbreaker",
+  //   name: "Swordbreaker",
+  //   description: "",
+  //   type: "passive",
+  // },
+  // { id: "tire", name: "Tire", description: "", type: "passive" },
   {
     id: "tormenters mask",
-    name: "Tormenters Mask",
-    description: "",
+    name: "Tormenter's Mask",
+    description:
+      "Enemies have a 10% chance of dying immediately the first time they detect you",
     type: "passive",
   },
   {
     id: "traitors cowl",
-    name: "Traitors Cowl",
-    description: "",
+    name: "Traitor's Cowl",
+    description:
+      "Stone allies can now be damaged by your balls, but you heal 2 health when a ball hits one.",
     type: "passive",
   },
-  { id: "turret", name: "Turret", description: "", type: "passive" },
+  {
+    id: "turret",
+    name: "Turret",
+    description:
+      "Floats around your character and shoots a baby ball at enemies every 2.0 seconds.",
+    type: "passive",
+  },
   {
     id: "upturned hatchet",
     name: "Upturned Hatchet",
-    description: "",
+    description:
+      "Balls deal 80% more damage after hitting the back of the field, otherwise damage is reduced by 20%.",
     type: "passive",
   },
   {
     id: "vampiric sword",
     name: "Vampiric Sword",
-    description: "",
+    description:
+      "Each kill heals you by 5, but each shot you take deals 2 damage to you.",
     type: "passive",
   },
-  { id: "voodoo doll", name: "Voodoo Doll", description: "", type: "passive" },
-  { id: "wagon wheel", name: "Wagon Wheel", description: "", type: "passive" },
-  { id: "war horn", name: "War Horn", description: "", type: "passive" },
-  { id: "windweaver", name: "Windweaver", description: "", type: "passive" },
+  {
+    id: "voodoo doll",
+    name: "Voodoo Doll",
+    description: "Curse has a 10% chance of killing enemies.",
+    type: "passive",
+  },
+  {
+    id: "wagon wheel",
+    name: "Wagon Wheel",
+    description:
+      "Each time a ball hits a wall, it deals 30% extra damage on the next hit.",
+    type: "passive",
+  },
+  {
+    id: "war horn",
+    name: "War Horn",
+    description: "All baby balls deal 20% more damage.",
+    type: "passive",
+  },
+  // { id: "windweaver", name: "Windweaver", description: "", type: "passive" },
   {
     id: "wings of the anointed",
     name: "Wings Of The Anointed",
-    description: "",
+    description:
+      "Balls move 40% faster and you move 20% faster. You no longer are affected by environmental hazards on the ground.",
     type: "passive",
   },
   {
     id: "wretched onion",
     name: "Wretched Onion",
-    description: "",
+    description: "Deal 6-12 per second to enemies within 2 tiles.",
     type: "passive",
   },
 ]);
-
-console.log(
-  JSON.stringify(
-    itemData.sort(
-      (a, b) => a.type.localeCompare(b.type) || a.id.localeCompare(b.id),
-    ),
-  ),
-);
 
 export const items = itemData.map<Item>((item) => {
   const spriteInfo = spriteDict.get(item.id);
