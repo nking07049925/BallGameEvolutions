@@ -54,7 +54,7 @@ function App() {
 
       <footer>
         this is made for fun by a fan, i dont own anything from the game,
-        everything belongs to devolver/kenny sun, yadda yadda
+        everything belongs to devolver/kenny sun and friends, yadda yadda
         <br />
         some of the visuals inspired by evolution charts by Sora-MMK and
         Mr_01101101
