@@ -932,7 +932,7 @@ export const itemData = typeWrap([
   // { id: "windweaver", name: "Windweaver", description: "", type: "passive" },
   {
     id: "wings of the anointed",
-    name: "Wings Of The Anointed",
+    name: "Wings of the Anointed",
     description:
       "Balls move 40% faster and you move 20% faster. You no longer are affected by environmental hazards on the ground.",
     type: "passive",

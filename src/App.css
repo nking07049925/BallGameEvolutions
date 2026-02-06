@@ -8,7 +8,7 @@
 }
 
 .title {
-  padding: 32px 64px;
+  padding: 32px;
   background-color: #00000020;
 }
 
@@ -16,10 +16,11 @@
   max-width: 1600px;
   margin: 0 auto;
   padding: 2rem;
+  overflow: auto;
 }
 
 footer {
-  padding: 32px 64px;
+  padding: 32px;
   background-color: #00000020;
 }
 

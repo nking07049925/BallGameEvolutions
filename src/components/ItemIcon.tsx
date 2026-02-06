@@ -50,6 +50,8 @@ export const ItemIcon = ({ item, size }: ItemIconProps) => {
         display: "inline-block",
         width: `${size}px`,
         height: `${size}px`,
+        "min-width": `${size}px`,
+        "min-height": `${size}px`,
         ...itemToStyle(item, size),
       }}
     />

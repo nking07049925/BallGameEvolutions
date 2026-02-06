@@ -1,4 +1,4 @@
-import { For } from "solid-js";
+import { For, Show } from "solid-js";
 import { ItemIcon } from "./ItemIcon";
 import { Map2 } from "../util/Data";
 import type { Item } from "../data/Items";
@@ -45,9 +45,11 @@ export const ItemEvoTable = ({ items, evolutions }: ItemEvoTableProps) => {
               <For each={filtered}>
                 {(column) => (
                   <td>
-                    <div class="item-icon-cell">
-                      <ItemIcon item={double.get(row, column)} />
-                    </div>
+                    <Show when={double.has2(row, column)}>
+                      <div class="item-icon-cell">
+                        <ItemIcon item={double.get(row, column)} />
+                      </div>
+                    </Show>
                   </td>
                 )}
               </For>
