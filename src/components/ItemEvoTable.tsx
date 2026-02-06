@@ -21,8 +21,8 @@ export const ItemEvoTable = ({ items, evolutions }: ItemEvoTableProps) => {
   return (
     <table class="item-evo-table">
       <tbody>
-        <tr style="position: sticky; top: 2px; z-index: 1">
-          <th style="z-index: 2; position: sticky; top: 2px; left: 2px"></th>
+        <tr style="position: sticky; top: 0; z-index: 1">
+          <th style="z-index: 2; position: sticky; top: 0; left: 0"></th>
           <For each={filtered}>
             {(item) => (
               <th>
@@ -36,7 +36,7 @@ export const ItemEvoTable = ({ items, evolutions }: ItemEvoTableProps) => {
         <For each={filtered}>
           {(row) => (
             <tr>
-              <th style="position: sticky; left: 2px">
+              <th style="position: sticky; left: 0">
                 <div class="item-icon-cell">
                   <ItemIcon item={row} />
                 </div>
