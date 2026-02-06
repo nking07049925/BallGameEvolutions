@@ -46,7 +46,11 @@ function App() {
       </div>
 
       <footer>
-        this is made for fun by a fan, i dont own anything yadda yadda
+        this is made for fun by a fan, i dont own anything from the game,
+        everything belongs to devolver/kenny sun, yadda yadda
+        <br />
+        some of the visuals inspired by evolution charts by Sora-MMK and
+        Mr_01101101
       </footer>
     </>
   );
