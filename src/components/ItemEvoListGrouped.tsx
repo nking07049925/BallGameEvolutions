@@ -24,7 +24,7 @@ export const ItemEvoListGrouped = ({
   );
 
   return (
-    <div class="item-evo-grouped" style="columns: 4">
+    <div class="item-evo-grouped">
       <For each={filtered}>
         {(item) => (
           <div style="display: inline-flex; flex-direction: column; padding: 8px; width: 100%">

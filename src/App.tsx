@@ -28,7 +28,9 @@ function App() {
         <ItemEvoListGrouped evolutions={evolutions} items={balls} />
 
         <h2>Evolution table</h2>
-        <ItemEvoTable items={balls} evolutions={evolutions} />
+        <div style="width: 100%; overflow: auto">
+          <ItemEvoTable items={balls} evolutions={evolutions} />
+        </div>
 
         <h2>Evolution tree</h2>
         <h3>Balls</h3>

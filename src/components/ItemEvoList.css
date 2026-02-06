@@ -21,6 +21,10 @@
   padding: 0 16px 16px 16px;
   background-color: #00000020;
 }
+.item-evo-grouped {
+  min-width: 320px;
+  columns: 320px auto;
+}
 .item-evo-grouped .item-evo-list {
   width: 100%;
 }
