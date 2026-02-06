@@ -32,6 +32,7 @@ export const ItemEvoListGrouped = ({
               <ItemIcon item={item} size={30} /> {item.name}
             </h3>
             <div class="item-evo-group">
+              {item.description}
               <Show when={evolvesFrom.has(item)}>
                 <h4>Evolves from</h4>
                 <ItemEvoList evolutions={evolvesFrom.get(item)!} />
