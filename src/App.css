@@ -3,9 +3,11 @@ body {
   --bg-half-elevated: #202020;
   --bg-elevated: #1b1b1b;
   --bg-title: #161616;
+  --font-color: #ffffffde;
 }
 
 #root {
+  color: var(--font-color);
   margin: 0;
   width: 100vw;
   min-height: 100vh;
