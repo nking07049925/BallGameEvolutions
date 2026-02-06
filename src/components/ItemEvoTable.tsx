@@ -20,7 +20,7 @@ export const ItemEvoTable = ({ items, evolutions }: ItemEvoTableProps) => {
   const filtered = items.filter((item) => double.has(item));
 
   return (
-    <table class="item-evo-table" style="width: 100%; overflow: auto">
+    <table class="item-evo-table">
       <tbody>
         <tr>
           <th></th>

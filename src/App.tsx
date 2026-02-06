@@ -31,13 +31,11 @@ function App() {
         <h3>Passives</h3>
         <ItemList items={passives} />
 
-        <h2>No longer boring flat list</h2>
+        <h2>Evolution list</h2>
         <ItemEvoListGrouped evolutions={evolutions} items={balls} />
 
         <h2>Evolution table</h2>
-        <div style="width: 100%; overflow: auto">
-          <ItemEvoTable items={balls} evolutions={evolutions} />
-        </div>
+        <ItemEvoTable items={balls} evolutions={evolutions} />
 
         <h2>Evolution tree</h2>
         <h3>Balls</h3>
