@@ -2,28 +2,27 @@ import "./App.css";
 import { ItemEvoTable } from "./components/ItemEvoTable";
 import { ItemList } from "./components/ItemList";
 import { ItemEvoTree } from "./components/ItemEvoTree";
-import { balls, passives } from "./data/Items";
-import {
-  evolutions,
-  ballEvolutions,
-  passiveEvolutions,
-} from "./data/Evolutions";
+import { balls, itemsDict, passives, type ItemId } from "./data/Items";
+import { evolutions, ballEvolutions, passiveEvolutions } from "./data/Items";
 import { ItemEvoListGrouped } from "./components/ItemEvoListGrouped";
 import { ItemIcon } from "./components/ItemIcon";
 import { For, type JSX } from "solid-js";
-import { A, Router } from "@solidjs/router";
+import { A, Router, useParams } from "@solidjs/router";
+import { ItemCard } from "./components/ItemCard";
 
 type Route = {
   path: string;
   title: JSX.Element;
   component: () => JSX.Element;
   end?: boolean;
+  showInNav?: boolean;
 };
 
 const routes: Route[] = [
   {
     path: "/",
     end: true,
+    showInNav: true,
     title: "Ball Evolutions",
     component: () => (
       <ItemEvoListGrouped evolutions={evolutions} items={balls} />
@@ -32,6 +31,7 @@ const routes: Route[] = [
   {
     path: "/itemlist",
     title: "All items",
+    showInNav: true,
     component: () => (
       <>
         <h3>Balls</h3>
@@ -44,11 +44,13 @@ const routes: Route[] = [
   {
     path: "/evotable",
     title: "Ball Evolution Table",
+    showInNav: true,
     component: () => <ItemEvoTable items={balls} evolutions={evolutions} />,
   },
   {
     path: "/evotree",
     title: "Ball Evolution Tree",
+    showInNav: true,
     component: () => (
       <>
         <h3>Balls</h3>
@@ -66,15 +68,19 @@ const routes: Route[] = [
       </>
     ),
   },
-].map((route) => ({
-  ...route,
-  component: () => (
-    <>
-      <h2>{route.title}</h2>
-      {route.component()}
-    </>
-  ),
-}));
+  {
+    path: "/items/:id",
+    title: "Item Info",
+    component: () => {
+      const params = useParams<{ id: string }>();
+      return (
+        <div style="width: 250px">
+          <ItemCard item={itemsDict.get(decodeURI(params.id) as ItemId)} />
+        </div>
+      );
+    },
+  },
+];
 
 const Layout = (props: { children?: JSX.Element }) => (
   <>
@@ -86,16 +92,21 @@ const Layout = (props: { children?: JSX.Element }) => (
         />
         Ball x Pit Evolution Explorer
       </h1>
-      <nav style="display: flex; gap: 16px">
-        <For each={routes}>
-          {(route) => (
-            <A class="route" href={route.path} end={route.end}>
-              {route.title}
-            </A>
-          )}
-        </For>
-      </nav>
     </header>
+    <nav class="nav">
+      <For each={routes.filter((route) => route.showInNav)}>
+        {(route) => (
+          <A
+            class="route"
+            activeClass="route-active"
+            href={route.path}
+            end={route.end}
+          >
+            {route.title}
+          </A>
+        )}
+      </For>
+    </nav>
 
     <div class="body">{props.children}</div>
 

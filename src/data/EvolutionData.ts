@@ -1,21 +1,11 @@
-import { groupBy } from "../util/Data";
-import { itemsDict, type Item, type ItemId } from "./Items";
+import { type ItemId } from "./Items";
 
-type RawEvolution = {
+export type RawEvolution = {
   items: ItemId[];
   result: ItemId;
 };
-export type Evolution = {
-  items: Item[];
-  result: Item;
-};
 
-const logItem = (itemId: ItemId) =>
-  `${itemId} "${itemsDict.get(itemId)?.name ?? "MISSING ITEM"}"`;
-const logEvo = ({ items, result }: RawEvolution) =>
-  `(${items.map(logItem).join(", ")}) => (${logItem(result)})`;
-
-const evolutionData: RawEvolution[] = [
+export const evolutionData: RawEvolution[] = [
   { items: ["bleed", "vampire"], result: "vampire lord" },
   { items: ["bleed", "brood mother"], result: "leech" },
   { items: ["bleed", "poison"], result: "virus" },
@@ -116,20 +106,3 @@ const evolutionData: RawEvolution[] = [
   },
   { items: ["deadeyes cross", "gracious impaler"], result: "impaler" },
 ];
-
-export const evolutions = evolutionData
-  .map(({ items, result }) => {
-    const mappedItems = items.map((itemId) => itemsDict.get(itemId));
-    const mappedResult = itemsDict.get(result);
-
-    if (mappedItems.some((item) => !item) || !mappedResult) {
-      console.log(`Data error for evolution: ${logEvo}`);
-      return;
-    }
-
-    return { items: mappedItems, result: mappedResult };
-  })
-  .filter((item): item is Evolution => item !== undefined);
-const evolutionDict = groupBy(evolutions, (evo) => evo.result.type);
-export const ballEvolutions = evolutionDict.get("ball") ?? [];
-export const passiveEvolutions = evolutionDict.get("passive") ?? [];

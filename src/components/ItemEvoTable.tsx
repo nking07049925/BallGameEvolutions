@@ -1,8 +1,7 @@
 import { For, Show } from "solid-js";
 import { ItemIcon } from "./ItemIcon";
 import { Map2 } from "../util/Data";
-import type { Item } from "../data/Items";
-import type { Evolution } from "../data/Evolutions";
+import type { Item, Evolution } from "../data/Items";
 
 export type ItemEvoTableProps = {
   items: Item[];

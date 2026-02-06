@@ -9,17 +9,27 @@
 }
 
 .title {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
   padding: 32px;
   background-color: #00000020;
+}
+.nav {
+  display: flex;
+  flex-direction: row;
+  padding: 0 32px;
+  background-color: #00000020;
+}
+
+.nav .route {
+  color: inherit;
+  padding: 16px 32px;
+}
+.nav .route.route-active {
+  background-color: #242424;
 }
 
 .body {
   flex: 1;
   max-width: 1600px;
-  margin: 0 auto;
   padding: 2rem;
   overflow: auto;
 }
