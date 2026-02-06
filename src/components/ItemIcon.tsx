@@ -47,6 +47,7 @@ export const ItemIcon = (props: ItemIconProps) => {
       href={`/items/${props.item?.id ?? "Invalid item"}`}
       class="item-icon"
       title={props.item?.name ?? "Missing item"}
+      noScroll
       style={{
         display: "inline-block",
         width: `${merged.size}px`,

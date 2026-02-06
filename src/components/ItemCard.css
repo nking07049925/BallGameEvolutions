@@ -10,14 +10,14 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background-color: #00000040;
+  background-color: var(--bg-title);
   margin: 0;
   padding: 16px;
 }
 
 .item-card-content {
   padding: 16px;
-  background-color: #00000020;
+  background-color: var(--bg-half-elevated);
 }
 
 .item-card .item-evo-list {

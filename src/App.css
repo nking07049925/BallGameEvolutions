@@ -1,22 +1,31 @@
+body {
+  --bg-light: #262626;
+  --bg-half-elevated: #202020;
+  --bg-elevated: #1b1b1b;
+  --bg-title: #161616;
+}
+
 #root {
   margin: 0;
   width: 100vw;
   min-height: 100vh;
-  background-color: #242424;
+  background-color: var(--bg-light);
   overflow: auto;
   display: flex;
   flex-direction: column;
 }
 
 .title {
-  padding: 32px;
-  background-color: #00000020;
+  padding: 32px 32px 0 32px;
+  background-color: var(--bg-half-elevated);
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 .nav {
   display: flex;
   flex-direction: row;
-  padding: 0 32px;
-  background-color: #00000020;
+  flex-wrap: wrap;
 }
 
 .nav .route {
@@ -24,7 +33,7 @@
   padding: 16px 32px;
 }
 .nav .route.route-active {
-  background-color: #242424;
+  background-color: var(--bg-light);
 }
 
 .body {
@@ -36,7 +45,7 @@
 
 footer {
   padding: 32px;
-  background-color: #00000020;
+  background-color: var(--bg-half-elevated);
 }
 
 .title h1 {
@@ -45,10 +54,10 @@ footer {
 
 table {
   text-align: left;
-  border-spacing: 2px;
+  border-spacing: 0;
 }
 table th {
-  background-color: #151515;
+  background-color: var(--bg-title);
   font-weight: 500;
   background-clip: border-box;
 }
@@ -59,10 +68,12 @@ table .item-text {
 td,
 th {
   padding: 4px;
+  box-sizing: border-box;
+  border: 2px solid var(--bg-light);
 }
 
-table tr {
-  background-color: #202020;
+table td {
+  background-color: var(--bg-half-elevated);
 }
 
 .item-icon-cell {

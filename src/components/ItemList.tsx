@@ -13,7 +13,9 @@ export const ItemList = (props: ItemListProps) => {
         <tr>
           <th></th>
           <th class="item-text">Name</th>
-          <th class="item-text">Description</th>
+          <th class="item-text" style="min-width: 256px">
+            Description
+          </th>
           <th
             class="item-text"
             title="How many evolutions this item takes part in"

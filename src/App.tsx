@@ -95,21 +95,23 @@ const Layout = (props: { children?: JSX.Element }) => (
         <ItemIcon item={randomBall} size={64} />
         Ball x Pit Evolution Explorer
       </h1>
+      <nav class="nav">
+        <For each={routes.filter((route) => route.showInNav)}>
+          {(route) => (
+            <A
+              class="route"
+              activeClass="route-active"
+              href={route.path}
+              end={route.end}
+              about="blank"
+              noScroll
+            >
+              {route.title}
+            </A>
+          )}
+        </For>
+      </nav>
     </header>
-    <nav class="nav">
-      <For each={routes.filter((route) => route.showInNav)}>
-        {(route) => (
-          <A
-            class="route"
-            activeClass="route-active"
-            href={route.path}
-            end={route.end}
-          >
-            {route.title}
-          </A>
-        )}
-      </For>
-    </nav>
 
     <div class="body">{props.children}</div>
 

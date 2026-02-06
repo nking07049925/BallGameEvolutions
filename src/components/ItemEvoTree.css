@@ -5,7 +5,7 @@
   background-color: transparent;
 }
 .item-evo-tree td {
-  background-color: #00000020;
+  background-color: var(--bg-half-elevated);
 }
 .item-evo-tree td.empty {
   background-color: transparent;
