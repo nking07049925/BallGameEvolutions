@@ -1,24 +1,24 @@
-import { type JSX } from "solid-js";
+import { mergeProps, type JSX } from "solid-js";
 import type { Item } from "../data/Items";
+import { A } from "@solidjs/router";
 
-const itemToStyle = (
-  item: Item | undefined,
-  size: number,
-): JSX.CSSProperties => {
-  if (!item || !("spriteImage" in item)) return {};
+type StyleProps = { size: number; item?: Item };
+
+const itemToStyle = (props: StyleProps): JSX.CSSProperties => {
+  if (!props.item) return {};
   const {
     spriteImageUrl,
     spriteImage: { width, height },
     spriteRegion: { x, y, w, h },
-  } = item;
+  } = props.item;
 
   const maxSize = Math.max(w, h) - 1;
 
-  const widthScale = size / maxSize;
-  const heightScale = size / maxSize;
+  const widthScale = props.size / maxSize;
+  const heightScale = props.size / maxSize;
 
-  const xScale = (width * widthScale) / size;
-  const yScale = (height * heightScale) / size;
+  const xScale = (width * widthScale) / props.size;
+  const yScale = (height * heightScale) / props.size;
 
   const xOffset = (w - maxSize + 1) / 2;
   const yOffset = (h - maxSize) / 2 - h;
@@ -39,20 +39,21 @@ export type ItemIconProps = {
   size?: number;
   showTooltip?: boolean;
 };
-export const ItemIcon = ({ item, size }: ItemIconProps) => {
-  size ??= 32;
+export const ItemIcon = (props: ItemIconProps) => {
+  const merged = mergeProps({ size: 32 }, props);
 
   return (
-    <div
+    <A
+      href={`/items/${props.item?.id ?? "Invalid item"}`}
       class="item-icon"
-      title={item?.name ?? "Missing item"}
+      title={props.item?.name ?? "Missing item"}
       style={{
         display: "inline-block",
-        width: `${size}px`,
-        height: `${size}px`,
-        "min-width": `${size}px`,
-        "min-height": `${size}px`,
-        ...itemToStyle(item, size),
+        width: `${merged.size}px`,
+        height: `${merged.size}px`,
+        "min-width": `${merged.size}px`,
+        "min-height": `${merged.size}px`,
+        ...itemToStyle(merged),
       }}
     />
   );

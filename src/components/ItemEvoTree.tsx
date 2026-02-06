@@ -1,8 +1,7 @@
 import { For, Show } from "solid-js";
 import { ItemIcon } from "./ItemIcon";
 import { ArrayDict, groupBy } from "../util/Data";
-import type { Evolution } from "../data/Evolutions";
-import type { Item } from "../data/Items";
+import type { Item, Evolution } from "../data/Items";
 import "./ItemEvoTree.css";
 
 export type ItemEvoTreeProps = {

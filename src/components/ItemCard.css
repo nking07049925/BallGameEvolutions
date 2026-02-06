@@ -1,0 +1,29 @@
+.item-card {
+  display: inline-flex;
+  flex-direction: column;
+  padding: 8px;
+  width: 100%;
+  min-width: 250px;
+}
+
+.item-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #00000040;
+  margin: 0;
+  padding: 16px;
+}
+
+.item-card-content {
+  padding: 16px;
+  background-color: #00000020;
+}
+
+.item-card .item-evo-list {
+  width: 100%;
+}
+.item-card .item-evo-ingredients {
+  width: unset;
+  justify-content: space-evenly;
+}

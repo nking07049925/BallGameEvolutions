@@ -1,8 +1,7 @@
 import { For, Show } from "solid-js";
 import { ItemIcon } from "./ItemIcon";
 import { Map2 } from "../util/Data";
-import type { Item } from "../data/Items";
-import type { Evolution } from "../data/Evolutions";
+import type { Item, Evolution } from "../data/Items";
 
 export type ItemEvoTableProps = {
   items: Item[];
@@ -22,8 +21,8 @@ export const ItemEvoTable = ({ items, evolutions }: ItemEvoTableProps) => {
   return (
     <table class="item-evo-table">
       <tbody>
-        <tr>
-          <th></th>
+        <tr style="position: sticky; top: 2px; z-index: 1">
+          <th style="z-index: 2; position: sticky; top: 2px; left: 2px"></th>
           <For each={filtered}>
             {(item) => (
               <th>
@@ -37,7 +36,7 @@ export const ItemEvoTable = ({ items, evolutions }: ItemEvoTableProps) => {
         <For each={filtered}>
           {(row) => (
             <tr>
-              <th>
+              <th style="position: sticky; left: 2px">
                 <div class="item-icon-cell">
                   <ItemIcon item={row} />
                 </div>
