@@ -45,9 +45,7 @@ footer {
 
 table {
   text-align: left;
-  border-spacing: 0;
-  border-top: 2px solid #242424;
-  border-left: 2px solid #242424;
+  border-spacing: 2px;
 }
 table th {
   background-color: #151515;
@@ -61,8 +59,6 @@ table .item-text {
 td,
 th {
   padding: 4px;
-  border-right: 2px solid #242424;
-  border-bottom: 2px solid #242424;
 }
 
 table tr {

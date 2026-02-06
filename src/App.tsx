@@ -20,6 +20,19 @@ type Route = {
 
 const routes: Route[] = [
   {
+    path: "/itemlist",
+    title: "All items",
+    showInNav: true,
+    component: () => (
+      <>
+        <h2>Balls</h2>
+        <ItemList items={balls} />
+        <h2>Passives</h2>
+        <ItemList items={passives} />
+      </>
+    ),
+  },
+  {
     path: "/",
     end: true,
     showInNav: true,
@@ -29,37 +42,28 @@ const routes: Route[] = [
     ),
   },
   {
-    path: "/itemlist",
-    title: "All items",
-    showInNav: true,
-    component: () => (
-      <>
-        <h3>Balls</h3>
-        <ItemList items={balls} />
-        <h3>Passives</h3>
-        <ItemList items={passives} />
-      </>
-    ),
-  },
-  {
     path: "/evotable",
     title: "Ball Evolution Table",
     showInNav: true,
-    component: () => <ItemEvoTable items={balls} evolutions={evolutions} />,
+    component: () => (
+      <div style="overflow: auto; width: min-content; max-width: 80vw; max-height: 80vh">
+        <ItemEvoTable items={balls} evolutions={evolutions} />
+      </div>
+    ),
   },
   {
     path: "/evotree",
-    title: "Ball Evolution Tree",
+    title: "Evolution Tree",
     showInNav: true,
     component: () => (
       <>
-        <h3>Balls</h3>
+        <h2>Balls</h2>
         <ItemEvoTree
           evolutions={ballEvolutions}
           minimumDepth={1}
           minimumIngredientCount={2}
         />
-        <h3>Passives</h3>
+        <h2>Passives</h2>
         <ItemEvoTree
           evolutions={passiveEvolutions}
           minimumDepth={1}
@@ -74,7 +78,7 @@ const routes: Route[] = [
     component: () => {
       const params = useParams<{ id: string }>();
       return (
-        <div style="width: 250px">
+        <div style="width: min-content; min-width: 250px">
           <ItemCard item={itemsDict.get(decodeURI(params.id) as ItemId)} />
         </div>
       );
@@ -82,14 +86,13 @@ const routes: Route[] = [
   },
 ];
 
+const randomBall = balls[Math.floor(Math.random() * balls.length)];
+
 const Layout = (props: { children?: JSX.Element }) => (
   <>
     <header class="title">
       <h1 style="display: flex; gap: 16px">
-        <ItemIcon
-          item={balls[Math.floor(Math.random() * balls.length)]}
-          size={64}
-        />
+        <ItemIcon item={randomBall} size={64} />
         Ball x Pit Evolution Explorer
       </h1>
     </header>
@@ -113,6 +116,7 @@ const Layout = (props: { children?: JSX.Element }) => (
     <footer>
       this is made for fun by a fan, i dont own anything from the game,
       everything belongs to devolver/kenny sun and friends, yadda yadda
+      <br />
       <br />
       some of the visuals inspired by evolution charts by Sora-MMK and
       Mr_01101101

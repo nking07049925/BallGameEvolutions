@@ -1,11 +1,12 @@
 import { For } from "solid-js";
 import { ItemIcon } from "./ItemIcon";
 import type { Item } from "../data/Items";
+import "./ItemList.css";
 
 export type ItemListProps = {
   items: Item[];
 };
-export const ItemList = ({ items }: ItemListProps) => {
+export const ItemList = (props: ItemListProps) => {
   return (
     <table class="item-list">
       <thead>
@@ -13,10 +14,19 @@ export const ItemList = ({ items }: ItemListProps) => {
           <th></th>
           <th class="item-text">Name</th>
           <th class="item-text">Description</th>
+          <th
+            class="item-text"
+            title="How many evolutions this item takes part in"
+          >
+            Evo
+          </th>
+          <th class="item-text" title="How many evolutions result in this item">
+            Res
+          </th>
         </tr>
       </thead>
       <tbody>
-        <For each={items}>
+        <For each={props.items}>
           {(item) => (
             <tr>
               <td>
@@ -26,6 +36,8 @@ export const ItemList = ({ items }: ItemListProps) => {
               </td>
               <td class="item-text">{item.name}</td>
               <td class="item-text">{item.description}</td>
+              <td class="item-text">{item.evolvesInto.length || ""}</td>
+              <td class="item-text">{item.evolvesFrom.length || ""}</td>
             </tr>
           )}
         </For>
