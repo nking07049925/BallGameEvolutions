@@ -124,9 +124,5 @@ const Layout = (props: { children?: JSX.Element }) => (
   </>
 );
 
-const App = () => (
-  <HashRouter root={Layout} base={import.meta.env.BASE_URL}>
-    {routes}
-  </HashRouter>
-);
+const App = () => <HashRouter root={Layout}>{routes}</HashRouter>;
 export default App;
