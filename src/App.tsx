@@ -2,7 +2,7 @@ import "./App.css";
 import { ItemEvoTable } from "./components/ItemEvoTable";
 import { ItemList } from "./components/ItemList";
 import { ItemEvoTree } from "./components/ItemEvoTree";
-import { items, balls, passives } from "./data/Items";
+import { balls, passives } from "./data/Items";
 import {
   evolutions,
   ballEvolutions,
