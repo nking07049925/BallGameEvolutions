@@ -38,7 +38,7 @@ export const ItemList = (props: ItemListProps) => {
               </td>
               <td class="item-text">{item.name}</td>
               <td class="item-text">{item.description}</td>
-              <td class="item-text">{item.evolvesInto.length || ""}</td>
+              <td class="item-text">{item.synergizesWith.length || ""}</td>
               <td class="item-text">{item.evolvesFrom.length || ""}</td>
             </tr>
           )}

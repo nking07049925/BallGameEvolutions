@@ -22,10 +22,10 @@ export const ItemCard = (props: ItemCardProps) => (
           item={props.item}
         />
       </Show>
-      <Show when={props.item?.evolvesInto.length}>
+      <Show when={props.item?.synergizesWith.length}>
         <h4>Synergizes with</h4>
         <ItemEvoList
-          evolutions={props.item?.evolvesInto ?? []}
+          evolutions={props.item?.synergizesWith ?? []}
           item={props.item}
         />
       </Show>

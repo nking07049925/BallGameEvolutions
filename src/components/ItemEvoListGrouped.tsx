@@ -8,7 +8,7 @@ export type ItemEvoListGroupedProps = {
 };
 export const ItemEvoListGrouped = (props: ItemEvoListGroupedProps) => {
   const filtered = props.items.filter(
-    (item) => item.evolvesFrom.length || item.evolvesInto.length,
+    (item) => item.evolvesFrom.length || item.synergizesWith.length,
   );
 
   return (

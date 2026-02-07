@@ -7,12 +7,13 @@ export type ItemEvoTableProps = {
   items: Item[];
   evolutions: Evolution[];
 };
+
 export const ItemEvoTable = ({ items, evolutions }: ItemEvoTableProps) => {
   const double = evolutions
     .filter(({ items }) => items.length == 2)
     .reduce(
-      (map, { items: [first, second], result: result }) =>
-        map.set(first, second, result) && map.set(second, first, result),
+      (map, { items: [first, second], result }) =>
+        map.set(first, second, result).set(second, first, result),
       new Map2<Item, Item, Item>(),
     );
 

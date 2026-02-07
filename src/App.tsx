@@ -3,7 +3,7 @@ import { ItemEvoTable } from "./components/ItemEvoTable";
 import { ItemList } from "./components/ItemList";
 import { ItemEvoTree } from "./components/ItemEvoTree";
 import { balls, itemsDict, passives, type ItemId } from "./data/Items";
-import { evolutions, ballEvolutions, passiveEvolutions } from "./data/Items";
+import { evolutions } from "./data/Items";
 import { ItemEvoListGrouped } from "./components/ItemEvoListGrouped";
 import { ItemIcon } from "./components/ItemIcon";
 import { For, type JSX } from "solid-js";
@@ -59,13 +59,13 @@ const routes: Route[] = [
       <>
         <h2>Balls</h2>
         <ItemEvoTree
-          evolutions={ballEvolutions}
+          items={balls}
           minimumDepth={1}
           minimumIngredientCount={2}
         />
         <h2>Passives</h2>
         <ItemEvoTree
-          evolutions={passiveEvolutions}
+          items={passives}
           minimumDepth={1}
           minimumIngredientCount={2}
         />

@@ -1,5 +1,9 @@
 const [, , basePath = ""] = process.argv;
 
+/*
+ * Utility for parsing item names and locations from unity assets
+ */
+
 import { readdirSync, readFileSync, writeFileSync } from "fs";
 // const textures = fs.readdirSync(`${basePath}/Assets/Texture2D`);
 const spriteFiles = readdirSync(`${basePath}/Assets/Sprite`);

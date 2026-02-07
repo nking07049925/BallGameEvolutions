@@ -1,3 +1,9 @@
+.item-evo-tree {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  flex-wrap: wrap;
+}
 .item-evo-tree table {
   border-spacing: 4px;
 }

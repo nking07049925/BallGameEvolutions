@@ -1,11 +1,10 @@
 import { For, Show } from "solid-js";
 import { ItemIcon } from "./ItemIcon";
-import { ArrayDict, groupBy } from "../util/Data";
-import type { Item, Evolution } from "../data/Items";
+import type { Item } from "../data/Items";
 import "./ItemEvoTree.css";
 
 export type ItemEvoTreeProps = {
-  evolutions: Evolution[];
+  items: Item[];
   minimumIngredientCount?: number;
   minimumDepth?: number;
 };
@@ -19,11 +18,7 @@ type EvolutionPath = {
 };
 
 // every EvolutionPath represents a single way to assemble an item
-const buildEvolutionPath = (
-  node: Item,
-  map: ArrayDict<Item, Evolution>,
-  depth: number,
-): EvolutionPath[] => {
+const buildEvolutionPath = (node: Item, depth: number): EvolutionPath[] => {
   const current: EvolutionPath = {
     node,
     depth,
@@ -31,14 +26,14 @@ const buildEvolutionPath = (
     offset: 0,
     maxDepth: 0,
   };
-  const evolutions = map.get(node);
-  if (!evolutions) return [current];
+  const evolutions = node.evolvesFrom;
+  if (!evolutions.length) return [current];
   return evolutions.flatMap((evolution) =>
     // calc the outer product for all child recipes in case they decide to have
     // multistage evos with multiple paths
 
     evolution.items // figure out all possible ways to make every child
-      .map((child) => buildEvolutionPath(child, map, depth + 1))
+      .map((child) => buildEvolutionPath(child, depth + 1))
       .reduce(
         // expand the child varations
         (trees: EvolutionPath[][], childs) =>
@@ -121,14 +116,17 @@ const PathTree = ({ path }: { path: EvolutionPath }) => {
 };
 
 export const ItemEvoTree = ({
-  evolutions,
+  items,
   minimumDepth,
   minimumIngredientCount,
 }: ItemEvoTreeProps) => {
-  const ingredients = new Set(evolutions.flatMap(({ items }) => items));
-  const resultMap = groupBy(evolutions, (evo) => evo.result);
-  const evolutionPaths = [...resultMap.keys()]
-    .flatMap((item) => buildEvolutionPath(item, resultMap, 0))
+  const ingredients = new Set(
+    items.flatMap(({ evolvesFrom }) =>
+      evolvesFrom.flatMap(({ items }) => items),
+    ),
+  );
+  const evolutionPaths = items
+    .flatMap((item) => buildEvolutionPath(item, 0))
     .filter(
       (path) =>
         !ingredients.has(path.node) &&
@@ -144,10 +142,7 @@ export const ItemEvoTree = ({
       (b.ingredients?.length ?? 0) - (a.ingredients?.length ?? 0),
   );
   return (
-    <div
-      class="item-evo-tree"
-      style="display: flex; flex-direction: row; gap: 8px; flex-wrap: wrap"
-    >
+    <div class="item-evo-tree">
       <For each={evolutionPaths}>{(path) => <PathTree path={path} />}</For>
     </div>
   );

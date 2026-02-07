@@ -1,9 +1,9 @@
 import { For, Show, type JSX } from "solid-js";
 
-export const ForSeparated = <T, U extends JSX.Element>(props: {
+export const ForSeparated = <T,>(props: {
   each: readonly T[];
   fallback?: JSX.Element;
-  children: (item: T, index: () => number) => U;
+  children: (item: T, index: () => number) => JSX.Element;
   separator: JSX.Element;
 }) => (
   <For each={props.each} fallback={props.fallback}>
