@@ -12,6 +12,8 @@ export const groupBy = <TValue, TKey>(
   return dict;
 };
 
+export const unique = <T>(data: T[]) => [...new Set(data)];
+
 export class ArrayDict<TKey, TValue> {
   private map: Map<TKey, TValue[]> = new Map();
   set(key: TKey, value: TValue[]) {
@@ -59,5 +61,11 @@ export class Map2<Key1, Key2, Value> {
     }
     innerMap.set(key2, value);
     return this;
+  }
+  keys() {
+    return this.map.keys();
+  }
+  keys2(key1: Key1) {
+    return this.map.get(key1)?.keys();
   }
 }

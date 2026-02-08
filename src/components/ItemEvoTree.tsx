@@ -8,6 +8,7 @@ export type ItemEvoTreeProps = {
   minimumIngredientCount?: number;
   minimumDepth?: number;
 };
+/** Represents a single way to assemble an item */
 type EvolutionPath = {
   node: Item;
   ingredients?: EvolutionPath[];
@@ -17,7 +18,6 @@ type EvolutionPath = {
   offset: number;
 };
 
-// every EvolutionPath represents a single way to assemble an item
 const buildEvolutionPath = (node: Item, depth: number): EvolutionPath[] => {
   const current: EvolutionPath = {
     node,
@@ -29,7 +29,7 @@ const buildEvolutionPath = (node: Item, depth: number): EvolutionPath[] => {
   const evolutions = node.evolvesFrom;
   if (!evolutions.length) return [current];
   return evolutions.flatMap((evolution) =>
-    // calc the outer product for all child recipes in case they decide to have
+    // calc all varations for all child recipes in case the devs decide to have
     // multistage evos with multiple paths
 
     evolution.items // figure out all possible ways to make every child

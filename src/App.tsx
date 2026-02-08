@@ -8,7 +8,7 @@ import { ItemEvoListGrouped } from "./components/ItemEvoListGrouped";
 import { ItemIcon } from "./components/ItemIcon";
 import { For, type JSX } from "solid-js";
 import { A, HashRouter, useParams } from "@solidjs/router";
-import { ItemCard } from "./components/ItemCard";
+import { ItemInfo } from "./pages/ItemInfo";
 
 type Route = {
   path: string;
@@ -47,7 +47,7 @@ const routes: Route[] = [
     showInNav: true,
     component: () => (
       <div style="overflow: auto; width: min-content; max-width: 80vw; max-height: 80vh">
-        <ItemEvoTable items={balls} evolutions={evolutions} />
+        <ItemEvoTable items={balls} />
       </div>
     ),
   },
@@ -73,14 +73,12 @@ const routes: Route[] = [
     ),
   },
   {
-    path: "/items/:id",
+    path: "/items/:itemid",
     title: "Item Info",
     component: () => {
-      const params = useParams<{ id: string }>();
+      const params = useParams<{ itemid: string }>();
       return (
-        <div style="width: min-content; min-width: 250px">
-          <ItemCard item={itemsDict.get(decodeURI(params.id) as ItemId)} />
-        </div>
+        <ItemInfo item={itemsDict.get(decodeURI(params.itemid) as ItemId)} />
       );
     },
   },

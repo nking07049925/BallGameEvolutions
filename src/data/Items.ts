@@ -88,3 +88,12 @@ items.forEach((item) => {
   item.evolvesFrom = evolvesFrom.get(item) ?? [];
   item.synergizesWith = synergizesWith.get(item) ?? [];
 });
+
+export const evolutionsFromItem = (item: Item) => [
+  ...item.evolvesFrom,
+  ...item.synergizesWith,
+];
+export const itemsFromEvolution = (evo: Evolution) => [
+  evo.result,
+  ...evo.items,
+];

@@ -15,9 +15,8 @@ export default defineConfig(
     },
   },
   {
-    
     rules: {
-      "@typescript-eslint/no-non-null-assertion": ["warn"],
+      "@typescript-eslint/no-non-null-assertion": ["off"],
       "@typescript-eslint/no-confusing-void-expression": [
         "error",
         { ignoreVoidReturningFunctions: true },

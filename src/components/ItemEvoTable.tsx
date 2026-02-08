@@ -1,30 +1,36 @@
-import { For, Show } from "solid-js";
+import { createMemo, For, Show } from "solid-js";
 import { ItemIcon } from "./ItemIcon";
 import { Map2 } from "../util/Data";
-import type { Item, Evolution } from "../data/Items";
+import { type Item, evolutionsFromItem } from "../data/Items";
 
 export type ItemEvoTableProps = {
   items: Item[];
-  evolutions: Evolution[];
 };
 
-export const ItemEvoTable = ({ items, evolutions }: ItemEvoTableProps) => {
-  const double = evolutions
-    .filter(({ items }) => items.length == 2)
-    .reduce(
-      (map, { items: [first, second], result }) =>
-        map.set(first, second, result).set(second, first, result),
-      new Map2<Item, Item, Item>(),
+export const ItemEvoTable = (props: ItemEvoTableProps) => {
+  const filtered = createMemo(() => {
+    const resultMap = props.items
+      .flatMap(evolutionsFromItem)
+      .filter(({ items }) => items.length == 2)
+      .reduce(
+        (map, { items: [first, second], result }) =>
+          map.set(first, second, result).set(second, first, result),
+        new Map2<Item, Item, Item>(),
+      );
+
+    const items = [...resultMap.keys()].sort((a, b) =>
+      a.name.localeCompare(b.name),
     );
 
-  const filtered = items.filter((item) => double.has(item));
+    return { items, resultMap };
+  });
 
   return (
     <table class="item-evo-table">
       <tbody>
         <tr style="position: sticky; top: 0; z-index: 1">
           <th style="z-index: 2; position: sticky; top: 0; left: 0"></th>
-          <For each={filtered}>
+          <For each={filtered().items}>
             {(item) => (
               <th>
                 <div class="item-icon-cell">
@@ -34,7 +40,7 @@ export const ItemEvoTable = ({ items, evolutions }: ItemEvoTableProps) => {
             )}
           </For>
         </tr>
-        <For each={filtered}>
+        <For each={filtered().items}>
           {(row) => (
             <tr>
               <th style="position: sticky; left: 0">
@@ -42,12 +48,14 @@ export const ItemEvoTable = ({ items, evolutions }: ItemEvoTableProps) => {
                   <ItemIcon item={row} />
                 </div>
               </th>
-              <For each={filtered}>
+              <For each={filtered().items}>
                 {(column) => (
                   <td>
-                    <Show when={double.has2(row, column)}>
+                    <Show when={filtered().resultMap.has2(row, column)}>
                       <div class="item-icon-cell">
-                        <ItemIcon item={double.get(row, column)} />
+                        <ItemIcon
+                          item={filtered().resultMap.get(row, column)}
+                        />
                       </div>
                     </Show>
                   </td>
