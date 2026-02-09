@@ -1,24 +1,22 @@
-import { mergeProps, type JSX } from "solid-js";
+import { Link } from "wouter-preact";
 import type { Item } from "../data/Items";
-import { A } from "@solidjs/router";
+import type { CSSProperties } from "preact";
 
-type StyleProps = { size: number; item?: Item };
-
-const itemToStyle = (props: StyleProps): JSX.CSSProperties => {
-  if (!props.item) return {};
+const itemToStyle = (item: Item | undefined, size: number): CSSProperties => {
+  if (!item) return {};
   const {
     spriteImageUrl,
     spriteImage: { width, height },
     spriteRegion: { x, y, w, h },
-  } = props.item;
+  } = item;
 
   const maxSize = Math.max(w, h) - 1;
 
-  const widthScale = props.size / maxSize;
-  const heightScale = props.size / maxSize;
+  const widthScale = size / maxSize;
+  const heightScale = size / maxSize;
 
-  const xScale = (width * widthScale) / props.size;
-  const yScale = (height * heightScale) / props.size;
+  const xScale = (width * widthScale) / size;
+  const yScale = (height * heightScale) / size;
 
   const xOffset = (w - maxSize + 1) / 2;
   const yOffset = (h - maxSize) / 2 - h;
@@ -27,10 +25,10 @@ const itemToStyle = (props: StyleProps): JSX.CSSProperties => {
   const normalizedY = (height - y + yOffset) * heightScale;
 
   return {
-    "background-image": `url("${spriteImageUrl}")`,
-    "background-position": `${-normalizedX}px ${-normalizedY}px`,
-    "background-size": `${xScale * 100}% ${yScale * 100}%`,
-    "image-rendering": "pixelated",
+    backgroundImage: `url("${spriteImageUrl}")`,
+    backgroundPosition: `${-normalizedX}px ${-normalizedY}px`,
+    backgroundSize: `${xScale * 100}% ${yScale * 100}%`,
+    imageRendering: "pixelated",
   };
 };
 
@@ -39,22 +37,21 @@ export type ItemIconProps = {
   size?: number;
   showTooltip?: boolean;
 };
-export const ItemIcon = (props: ItemIconProps) => {
-  const merged = mergeProps({ size: 32 }, props);
+export const ItemIcon = ({ item, size }: ItemIconProps) => {
+  size ??= 32;
 
   return (
-    <A
-      href={`/items/${props.item?.id ?? "Invalid item"}`}
+    <Link
+      href={`/items/${item?.id ?? "Invalid item"}`}
       class="item-icon"
-      title={props.item?.name ?? "Missing item"}
-      noScroll
+      title={item?.name ?? "Missing item"}
       style={{
         display: "inline-block",
-        width: `${merged.size}px`,
-        height: `${merged.size}px`,
-        "min-width": `${merged.size}px`,
-        "min-height": `${merged.size}px`,
-        ...itemToStyle(merged),
+        width: size,
+        height: size,
+        minWidth: size,
+        minHeight: size,
+        ...itemToStyle(item, size),
       }}
     />
   );

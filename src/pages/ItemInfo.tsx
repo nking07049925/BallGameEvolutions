@@ -1,4 +1,3 @@
-import { Show } from "solid-js";
 import { ItemCard } from "../components/ItemCard";
 import { type Item } from "../data/Items";
 import { ItemEvoTable } from "../components/ItemEvoTable";
@@ -12,20 +11,16 @@ export type ItemInfoProps = {
 // (?shopping cart type ui for picking items?)
 // (?? move to preact ??)
 
-export const ItemInfo = (props: ItemInfoProps) => {
-  const isBoring = () => {
-    if (!props.item) return true;
-    return !props.item.evolvesFrom.length && !props.item.synergizesWith.length;
-  };
+export const ItemInfo = ({ item }: ItemInfoProps) => {
+  if (!item) return <h2>Invalid Item...</h2>;
+  const isBoring = !item.evolvesFrom.length && !item.synergizesWith.length;
 
   return (
-    <Show when={props.item} fallback={<h2>Invalid Item...</h2>}>
+    <>
       <div style="width: min-content; min-width: 250px">
-        <ItemCard item={props.item} />
+        <ItemCard item={item} />
       </div>
-      <Show when={!isBoring()}>
-        <ItemEvoTable items={[props.item!]} />
-      </Show>
-    </Show>
+      {!isBoring && <ItemEvoTable items={[item]} />}
+    </>
   );
 };

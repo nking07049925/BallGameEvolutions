@@ -16,7 +16,7 @@ export default defineConfig(
   },
   {
     rules: {
-      "@typescript-eslint/no-non-null-assertion": ["off"],
+      "@typescript-eslint/no-non-null-assertion": ["warn"],
       "@typescript-eslint/no-confusing-void-expression": [
         "error",
         { ignoreVoidReturningFunctions: true },
@@ -24,6 +24,14 @@ export default defineConfig(
       "@typescript-eslint/restrict-template-expressions": [
         "error",
         { allowNumber: true },
+      ],
+      "@typescript-eslint/no-misused-spread": [
+        "error",
+        {
+          allow: [
+            { from: "package", name: "CSSProperties", package: "preact" },
+          ],
+        },
       ],
     },
   },

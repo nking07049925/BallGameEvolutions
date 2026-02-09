@@ -3,26 +3,27 @@ import { ItemEvoTable } from "./components/ItemEvoTable";
 import { ItemList } from "./components/ItemList";
 import { ItemEvoTree } from "./components/ItemEvoTree";
 import { balls, itemsDict, passives, type ItemId } from "./data/Items";
-import { evolutions } from "./data/Items";
 import { ItemEvoListGrouped } from "./components/ItemEvoListGrouped";
 import { ItemIcon } from "./components/ItemIcon";
-import { For, type JSX } from "solid-js";
-import { A, HashRouter, useParams } from "@solidjs/router";
 import { ItemInfo } from "./pages/ItemInfo";
+import type { ComponentChildren } from "preact";
+import { Link, Route, Router, Switch, useParams } from "wouter-preact";
+import { useHashLocation } from "wouter-preact/use-hash-location";
+import { dictify, filterTruthy, joinClassNames } from "./util/Data";
 
-type Route = {
-  path: string;
-  title: JSX.Element;
-  component: () => JSX.Element;
-  end?: boolean;
+type Route<Paths extends string> = {
+  path: Paths;
+  title: ComponentChildren;
+  component: (params?: object) => ComponentChildren;
   showInNav?: boolean;
 };
 
-const routes: Route[] = [
+const typedRoutes = <Paths extends string>(routes: Route<Paths>[]) => routes;
+
+const routes = typedRoutes([
   {
     path: "/itemlist",
     title: "All items",
-    showInNav: true,
     component: () => (
       <>
         <h2>Balls</h2>
@@ -33,18 +34,8 @@ const routes: Route[] = [
     ),
   },
   {
-    path: "/",
-    end: true,
-    showInNav: true,
-    title: "Ball Evolutions",
-    component: () => (
-      <ItemEvoListGrouped evolutions={evolutions} items={balls} />
-    ),
-  },
-  {
     path: "/evotable",
     title: "Ball Evolution Table",
-    showInNav: true,
     component: () => (
       <div style="overflow: auto; width: min-content; max-width: 80vw; max-height: 80vh">
         <ItemEvoTable items={balls} />
@@ -54,7 +45,6 @@ const routes: Route[] = [
   {
     path: "/evotree",
     title: "Evolution Tree",
-    showInNav: true,
     component: () => (
       <>
         <h2>Balls</h2>
@@ -73,45 +63,64 @@ const routes: Route[] = [
     ),
   },
   {
-    path: "/items/:itemid",
+    path: "/items/:itemId",
     title: "Item Info",
     component: () => {
-      const params = useParams<{ itemid: string }>();
-      return (
-        <ItemInfo item={itemsDict.get(decodeURI(params.itemid) as ItemId)} />
-      );
+      const { itemId } = useParams<{ itemId: ItemId }>();
+      return <ItemInfo item={itemsDict.get(itemId)} />;
     },
   },
+  {
+    path: "/",
+    title: "Ball Evolutions",
+    component: () => <ItemEvoListGrouped items={balls} />,
+  },
+]);
+
+const routeDict = dictify(routes, (route) => route.path);
+const links: (typeof routes)[number]["path"][] = [
+  "/itemlist",
+  "/",
+  "/evotable",
+  "/evotree",
 ];
+const routesForNav = links
+  .map((link) => routeDict.get(link))
+  .filter(filterTruthy);
 
 const randomBall = balls[Math.floor(Math.random() * balls.length)];
 
-const Layout = (props: { children?: JSX.Element }) => (
-  <>
+export const App = () => (
+  <Router base={import.meta.env.BASE_URL} hook={useHashLocation}>
     <header class="title">
       <h1 style="display: flex; gap: 16px">
         <ItemIcon item={randomBall} size={64} />
         Ball x Pit Evolution Explorer
       </h1>
       <nav class="nav">
-        <For each={routes.filter((route) => route.showInNav)}>
-          {(route) => (
-            <A
-              class="route"
-              activeClass="route-active"
-              href={route.path}
-              end={route.end}
-              about="blank"
-              noScroll
-            >
-              {route.title}
-            </A>
-          )}
-        </For>
+        {routesForNav.map((route) => (
+          <Link
+            className={(active) =>
+              joinClassNames("route", active && "route-active")
+            }
+            href={route.path}
+          >
+            {route.title}
+          </Link>
+        ))}
       </nav>
     </header>
 
-    <div class="body">{props.children}</div>
+    <div class="body">
+      <Switch>
+        {routes.map((route) => (
+          <Route path={route.path} component={route.component} />
+        ))}
+        <Route>
+          <h2>404, Sorry the page does not exist!</h2>
+        </Route>
+      </Switch>
+    </div>
 
     <footer>
       this is made for fun by a fan, i dont own anything from the game,
@@ -121,8 +130,5 @@ const Layout = (props: { children?: JSX.Element }) => (
       some of the visuals inspired by evolution charts by Sora-MMK and
       Mr_01101101
     </footer>
-  </>
+  </Router>
 );
-
-const App = () => <HashRouter root={Layout}>{routes}</HashRouter>;
-export default App;

@@ -13,6 +13,11 @@ export const groupBy = <TValue, TKey>(
 };
 
 export const unique = <T>(data: T[]) => [...new Set(data)];
+export const filterTruthy = <T>(value: T | undefined | false): value is T =>
+  !!value;
+
+export const joinClassNames = (...args: (string | false | undefined)[]) =>
+  args.filter(filterTruthy).join(" ");
 
 export class ArrayDict<TKey, TValue> {
   private map: Map<TKey, TValue[]> = new Map();

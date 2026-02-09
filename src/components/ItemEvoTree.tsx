@@ -1,4 +1,3 @@
-import { For, Show } from "solid-js";
 import { ItemIcon } from "./ItemIcon";
 import type { Item } from "../data/Items";
 import "./ItemEvoTree.css";
@@ -81,41 +80,31 @@ const PathTree = ({ path }: { path: EvolutionPath }) => {
         </tr>
       </thead>
       <tbody>
-        <For each={flattened}>
-          {(row) => (
-            <tr>
-              <For each={row}>
-                {(col, ind) => {
-                  const previous = row[ind() - 1];
-                  const spanDiff =
-                    col.offset -
-                    (previous ? previous.offset + previous.span : 0);
-                  return (
-                    <>
-                      <Show when={!!spanDiff}>
-                        <td colSpan={spanDiff} class="empty"></td>
-                      </Show>
-                      <td colSpan={col.span}>
-                        <div class="item-icon-cell">
-                          <ItemIcon
-                            item={col.node}
-                            size={32 + 16 * col.maxDepth}
-                          />
-                        </div>
-                      </td>
-                    </>
-                  );
-                }}
-              </For>
-            </tr>
-          )}
-        </For>
+        {flattened.map((row) => (
+          <tr>
+            {row.map((col, ind) => {
+              const previous = row[ind - 1];
+              const spanDiff =
+                col.offset - (previous ? previous.offset + previous.span : 0);
+              return (
+                <>
+                  {!!spanDiff && <td colSpan={spanDiff} class="empty"></td>}
+                  <td colSpan={col.span}>
+                    <div class="item-icon-cell">
+                      <ItemIcon item={col.node} size={32 + 16 * col.maxDepth} />
+                    </div>
+                  </td>
+                </>
+              );
+            })}
+          </tr>
+        ))}
       </tbody>
     </table>
   );
 };
 
-export const ItemEvoTree = ({
+const buildAllPaths = ({
   items,
   minimumDepth,
   minimumIngredientCount,
@@ -141,9 +130,13 @@ export const ItemEvoTree = ({
       b.maxDepth - a.maxDepth ||
       (b.ingredients?.length ?? 0) - (a.ingredients?.length ?? 0),
   );
-  return (
-    <div class="item-evo-tree">
-      <For each={evolutionPaths}>{(path) => <PathTree path={path} />}</For>
-    </div>
-  );
+  return evolutionPaths;
 };
+
+export const ItemEvoTree = (props: ItemEvoTreeProps) => (
+  <div class="item-evo-tree">
+    {buildAllPaths(props).map((path) => (
+      <PathTree path={path} />
+    ))}
+  </div>
+);

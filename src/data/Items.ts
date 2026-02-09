@@ -1,4 +1,4 @@
-import { ArrayDict, dictify, groupBy } from "../util/Data";
+import { ArrayDict, dictify, filterTruthy, groupBy } from "../util/Data";
 import { evolutionData, type RawEvolution } from "./EvolutionData";
 import { itemData, type RawItem } from "./ItemData";
 import { spriteDict, type SheetImage, type SpriteRegion } from "./Sprites";
@@ -40,7 +40,7 @@ export const items = itemData
       synergizesWith: [],
     } as Item;
   })
-  .filter((item): item is Item => item !== undefined);
+  .filter(filterTruthy);
 const grouped = groupBy(items, (item) => item.type);
 export const balls = grouped.get("ball") ?? [];
 export const passives = grouped.get("passive") ?? [];
@@ -69,9 +69,9 @@ export const evolutions = evolutionData
       return;
     }
 
-    return { items: mappedItems, result: mappedResult };
+    return { items: mappedItems, result: mappedResult } as Evolution;
   })
-  .filter((item): item is Evolution => item !== undefined);
+  .filter(filterTruthy);
 
 const evolutionDict = groupBy(evolutions, (evo) => evo.result.type);
 export const ballEvolutions = evolutionDict.get("ball") ?? [];
