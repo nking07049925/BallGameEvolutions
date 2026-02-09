@@ -225,13 +225,13 @@ export const itemData = typeWrap([
   },
   {
     id: "laser (horizontal)",
-    name: "Horizontal Laser",
+    name: "Laser (Horizontal)",
     description: "Deals 9-18 damage to all enemies in the same row.",
     type: "ball",
   },
   {
     id: "laser (vertical)",
-    name: "Vertical Laser",
+    name: "Laser (Vertical)",
     description: "Deals 9-18 damage to all enemies in the same column.",
     type: "ball",
   },

@@ -1,4 +1,4 @@
-import { ArrayDict, dictify, groupBy } from "../util/Data";
+import { ArrayDict, dictify, filterTruthy, groupBy } from "../util/Data";
 import { evolutionData, type RawEvolution } from "./EvolutionData";
 import { itemData, type RawItem } from "./ItemData";
 import { spriteDict, type SheetImage, type SpriteRegion } from "./Sprites";
@@ -9,7 +9,9 @@ export type Item = RawItem<ItemId> & {
   spriteRegion: SpriteRegion;
   spriteImage: SheetImage;
   spriteImageUrl: string;
-  evolvesInto: Evolution[];
+  /** Item is an ingredient in these */
+  synergizesWith: Evolution[];
+  /** Item is the result of these */
   evolvesFrom: Evolution[];
 };
 
@@ -35,10 +37,10 @@ export const items = itemData
       spriteImage: image,
       spriteImageUrl: imageUrl,
       evolvesFrom: [],
-      evolvesInto: [],
+      synergizesWith: [],
     } as Item;
   })
-  .filter((item): item is Item => item !== undefined);
+  .filter(filterTruthy);
 const grouped = groupBy(items, (item) => item.type);
 export const balls = grouped.get("ball") ?? [];
 export const passives = grouped.get("passive") ?? [];
@@ -53,35 +55,45 @@ const logEvo = ({ items, result }: RawEvolution) =>
   `(${items.map(logItem).join(", ")}) => (${logItem(result)})`;
 
 export type Evolution = {
-  items: Item[];
+  items: [Item, Item, ...Item[]];
   result: Item;
 };
 export const evolutions = evolutionData
-  .map(({ items, result }) => {
+  .map((evolution) => {
+    const { items, result } = evolution;
     const mappedItems = items.map((itemId) => itemsDict.get(itemId));
     const mappedResult = itemsDict.get(result);
 
     if (mappedItems.some((item) => !item) || !mappedResult) {
-      console.log(`Data error for evolution: ${logEvo}`);
+      console.log(`Data error for evolution: ${logEvo(evolution)}`);
       return;
     }
 
-    return { items: mappedItems, result: mappedResult };
+    return { items: mappedItems, result: mappedResult } as Evolution;
   })
-  .filter((item): item is Evolution => item !== undefined);
+  .filter(filterTruthy);
 
 const evolutionDict = groupBy(evolutions, (evo) => evo.result.type);
 export const ballEvolutions = evolutionDict.get("ball") ?? [];
 export const passiveEvolutions = evolutionDict.get("passive") ?? [];
 
-export const evolvesInto = new ArrayDict<Item, Evolution>();
+export const synergizesWith = new ArrayDict<Item, Evolution>();
 evolutions.forEach((evo) =>
-  evo.items.forEach((item) => evolvesInto.add(item, evo)),
+  evo.items.forEach((item) => synergizesWith.add(item, evo)),
 );
 export const evolvesFrom = new ArrayDict<Item, Evolution>();
 evolutions.forEach((evo) => evolvesFrom.add(evo.result, evo));
 
 items.forEach((item) => {
   item.evolvesFrom = evolvesFrom.get(item) ?? [];
-  item.evolvesInto = evolvesInto.get(item) ?? [];
+  item.synergizesWith = synergizesWith.get(item) ?? [];
 });
+
+export const evolutionsFromItem = (item: Item) => [
+  ...item.evolvesFrom,
+  ...item.synergizesWith,
+];
+export const itemsFromEvolution = (evo: Evolution) => [
+  evo.result,
+  ...evo.items,
+];

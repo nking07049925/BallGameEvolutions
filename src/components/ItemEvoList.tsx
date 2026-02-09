@@ -1,39 +1,32 @@
-import { For } from "solid-js";
 import { ItemIcon } from "./ItemIcon";
-import type { Evolution, Item } from "../data/Items";
-import { ForSeparated } from "./ForSeparated";
+import { type Evolution, type Item } from "../data/Items";
+import { ListSeparated } from "./ListSeparated";
 import "./ItemEvoList.css";
 
 export type ItemEvoListProps = {
   evolutions: Evolution[];
   item?: Item;
 };
-export const ItemEvoList = (props: ItemEvoListProps) => {
+
+export const ItemEvoList = ({ evolutions, item }: ItemEvoListProps) => {
+  const filterItems = ({ items, result }: Evolution) =>
+    result === item
+      ? items
+      : [item, ...items.filter((ingredient) => ingredient !== item)];
+
   return (
     <div class="item-evo-list">
-      <For each={props.evolutions}>
-        {({ items, result }) => (
-          <div class="item-evo-ingredients">
-            <ForSeparated
-              each={
-                result !== props.item
-                  ? [
-                      props.item,
-                      ...items.filter(
-                        (ingredient) => ingredient !== props.item,
-                      ),
-                    ]
-                  : items
-              }
-              separator={<span class="x">×</span>}
-            >
-              {(item) => <ItemIcon item={item} />}
-            </ForSeparated>
-            =
-            <ItemIcon item={result} />
-          </div>
-        )}
-      </For>
+      {evolutions.map((evolution) => (
+        <div class="item-evo-ingredients">
+          <ListSeparated separator={<span class="x">×</span>}>
+            {filterItems(evolution).map((item) => (
+              <ItemIcon item={item} />
+            ))}
+          </ListSeparated>
+          =
+          <ItemIcon item={evolution.result} />
+        </div>
+      ))}
     </div>
   );
 };

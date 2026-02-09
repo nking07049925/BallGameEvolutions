@@ -1,19 +1,19 @@
-import { For } from "solid-js";
-import type { Item, Evolution } from "../data/Items";
+import type { Item } from "../data/Items";
 import { ItemCard } from "./ItemCard";
 
 export type ItemEvoListGroupedProps = {
   items: Item[];
-  evolutions: Evolution[];
 };
-export const ItemEvoListGrouped = (props: ItemEvoListGroupedProps) => {
-  const filtered = props.items.filter(
-    (item) => item.evolvesFrom.length || item.evolvesInto.length,
+export const ItemEvoListGrouped = ({ items }: ItemEvoListGroupedProps) => {
+  const filtered = items.filter(
+    (item) => item.evolvesFrom.length || item.synergizesWith.length,
   );
 
   return (
     <div class="item-evo-grouped">
-      <For each={filtered}>{(item) => <ItemCard item={item} />}</For>
+      {filtered.map((item) => (
+        <ItemCard item={item} />
+      ))}
     </div>
   );
 };
