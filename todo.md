@@ -3,6 +3,8 @@
 - [ ] Give each component a css style
 - [x] Set up light theme (why would someone use this)
 - [ ] Make proper page components instead of inline funcs in App router
+- [x] Make item list table sortable
+  - [ ] Add icons for sort direction
 - [ ] Import character data from the game
 - [x] Item info popover on icon hover
   - [ ] Make it portal, too
