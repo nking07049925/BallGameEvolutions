@@ -92,43 +92,49 @@ const randomBall = balls[Math.floor(Math.random() * balls.length)];
 
 export const App = () => (
   <Router hook={useHashLocation}>
-    <header class="title">
-      <h1 style="display: flex; gap: 16px">
-        <ItemIcon item={randomBall} size={64} />
-        Ball x Pit Evolution Explorer
-      </h1>
-      <nav class="nav">
-        {routesForNav.map((route) => (
-          <Link
-            className={(active) =>
-              joinClassNames("route", active && "route-active")
-            }
-            href={route.path}
-          >
-            {route.title}
-          </Link>
-        ))}
-      </nav>
-    </header>
+    <div class="title-container">
+      <header class="title">
+        <div style="display: flex; gap: 16px">
+          <ItemIcon item={randomBall} size={64} showPopover />
+          <h1>Ball x Pit Evolution Explorer</h1>
+        </div>
+        <nav class="nav">
+          {routesForNav.map((route) => (
+            <Link
+              className={(active) =>
+                joinClassNames("route", active && "route-active")
+              }
+              href={route.path}
+            >
+              {route.title}
+            </Link>
+          ))}
+        </nav>
+      </header>
+    </div>
 
-    <div class="body">
-      <Switch>
-        {routes.map((route) => (
-          <Route path={route.path} component={route.component} />
-        ))}
-        <Route>
-          <h2>404, Sorry the page does not exist!</h2>
-        </Route>
-      </Switch>
+    <div class="body-container">
+      <div class="body">
+        <Switch>
+          {routes.map((route) => (
+            <Route path={route.path} component={route.component} />
+          ))}
+          <Route>
+            <h2>404, Sorry the page does not exist!</h2>
+          </Route>
+        </Switch>
+      </div>
     </div>
 
     <footer>
-      this is made for fun by a fan, i dont own anything from the game,
-      everything belongs to devolver/kenny sun and friends, yadda yadda
-      <br />
-      <br />
-      some of the visuals inspired by evolution charts by Sora-MMK and
-      Mr_01101101
+      <div class="footer-text">
+        this is made for fun by a fan, i dont own anything from the game,
+        everything belongs to devolver/kenny sun and friends, yadda yadda
+        <br />
+        <br />
+        some of the visuals inspired by evolution charts by Sora-MMK and
+        Mr_01101101
+      </div>
     </footer>
   </Router>
 );

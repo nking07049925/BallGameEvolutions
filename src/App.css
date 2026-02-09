@@ -1,25 +1,27 @@
-body {
-  --bg-light: #262626;
-  --bg-half-elevated: #202020;
-  --bg-elevated: #1b1b1b;
-  --bg-title: #161616;
-  --font-color: #ffffffde;
-}
-
 #root {
   color: var(--font-color);
   margin: 0;
   width: 100vw;
   min-height: 100vh;
-  background-color: var(--bg-light);
+  background-color: var(--bg-main);
   overflow: auto;
   display: flex;
   flex-direction: column;
+  --body-max-width: 1500px;
+}
+
+.title-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: var(--bg-half-elevated);
 }
 
 .title {
+  max-width: var(--body-max-width);
+  flex: 1;
   padding: 32px 32px 0 32px;
-  background-color: var(--bg-half-elevated);
   display: flex;
   flex-direction: column;
   gap: 32px;
@@ -35,18 +37,37 @@ body {
   padding: 16px 32px;
 }
 .nav .route.route-active {
-  background-color: var(--bg-light);
+  background-color: var(--bg-main);
 }
 
 .body {
   flex: 1;
-  max-width: 1600px;
+  max-width: var(--body-max-width);
+  width: 100%;
   padding: 2rem;
   overflow: auto;
 }
 
-footer {
+.body-container {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: var(--bg-main);
+}
+
+.footer-text {
+  flex: 1;
+  max-width: var(--body-max-width);
   padding: 32px;
+}
+
+footer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   background-color: var(--bg-half-elevated);
 }
 
@@ -71,7 +92,7 @@ td,
 th {
   padding: 4px;
   box-sizing: border-box;
-  border: 2px solid var(--bg-light);
+  border: 2px solid var(--bg-main);
 }
 
 table td {

@@ -19,12 +19,15 @@ export const ItemEvoList = ({ evolutions, item }: ItemEvoListProps) => {
       {evolutions.map((evolution) => (
         <div class="item-evo-ingredients">
           <ListSeparated separator={<span class="x">×</span>}>
-            {filterItems(evolution).map((item) => (
-              <ItemIcon item={item} />
+            {filterItems(evolution).map((ingredient) => (
+              <ItemIcon item={ingredient} showPopover={ingredient !== item} />
             ))}
           </ListSeparated>
           =
-          <ItemIcon item={evolution.result} />
+          <ItemIcon
+            item={evolution.result}
+            showPopover={evolution.result !== item}
+          />
         </div>
       ))}
     </div>

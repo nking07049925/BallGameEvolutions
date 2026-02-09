@@ -128,7 +128,8 @@ const buildAllPaths = ({
   evolutionPaths.sort(
     (a, b) =>
       b.maxDepth - a.maxDepth ||
-      (b.ingredients?.length ?? 0) - (a.ingredients?.length ?? 0),
+      (b.ingredients?.length ?? 0) - (a.ingredients?.length ?? 0) ||
+      a.node.name.localeCompare(b.node.name),
   );
   return evolutionPaths;
 };

@@ -1,6 +1,8 @@
 import { Link } from "wouter-preact";
 import type { Item } from "../data/Items";
 import type { CSSProperties } from "preact";
+import { Popover } from "./Popover";
+import { ItemCard } from "./ItemCard";
 
 const itemToStyle = (item: Item | undefined, size: number): CSSProperties => {
   if (!item) return {};
@@ -18,16 +20,20 @@ const itemToStyle = (item: Item | undefined, size: number): CSSProperties => {
   const xScale = (width * widthScale) / size;
   const yScale = (height * heightScale) / size;
 
-  const xOffset = (w - maxSize + 1) / 2;
+  const xOffset = (w - maxSize) / 2;
   const yOffset = (h - maxSize) / 2 - h;
 
   const normalizedX = (x + xOffset) * widthScale;
   const normalizedY = (height - y + yOffset) * heightScale;
 
+  const round = (unit: string) => (num: number) => num.toFixed(2) + unit;
+  const bgPos = [-normalizedX, -normalizedY].map(round("px")).join(" ");
+  const bgSize = [xScale * 100, yScale * 100].map(round("%")).join(" ");
+
   return {
     backgroundImage: `url("${spriteImageUrl}")`,
-    backgroundPosition: `${-normalizedX}px ${-normalizedY}px`,
-    backgroundSize: `${xScale * 100}% ${yScale * 100}%`,
+    backgroundPosition: bgPos,
+    backgroundSize: bgSize,
     imageRendering: "pixelated",
   };
 };
@@ -35,16 +41,16 @@ const itemToStyle = (item: Item | undefined, size: number): CSSProperties => {
 export type ItemIconProps = {
   item?: Item;
   size?: number;
-  showTooltip?: boolean;
+  showPopover?: boolean;
 };
-export const ItemIcon = ({ item, size }: ItemIconProps) => {
+export const ItemIcon = ({ item, size, showPopover }: ItemIconProps) => {
   size ??= 32;
 
-  return (
+  const icon = (
     <Link
       href={`/items/${item?.id ?? "Invalid item"}`}
       class="item-icon"
-      title={item?.name ?? "Missing item"}
+      title={!showPopover ? (item?.name ?? "Missing item") : undefined}
       style={{
         display: "inline-block",
         width: size,
@@ -55,4 +61,8 @@ export const ItemIcon = ({ item, size }: ItemIconProps) => {
       }}
     />
   );
+
+  if (!showPopover || !item) return icon;
+
+  return <Popover content={<ItemCard item={item} />}>{icon}</Popover>;
 };
