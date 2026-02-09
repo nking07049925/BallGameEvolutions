@@ -1,9 +1,11 @@
+- [x] Center page content so its not as ugly in widescreen
 - [ ] Clean up inline styles
 - [ ] Give each component a css style
-- [ ] Set up light theme (why would someone use this)
+- [x] Set up light theme (why would someone use this)
 - [ ] Make proper page components instead of inline funcs in App router
 - [ ] Import character data from the game
-- [ ] Item info popover on icon hover
+- [x] Item info popover on icon hover
+  - [ ] Make it portal, too
 - [ ] Nuke ItemInfo page, make a loadout explorer instead
   - [ ] 2x4 Inventory table (allow overflow when picking items?)
   - [ ] Character select
