@@ -1,8 +1,14 @@
 /* @refresh reload */
-import { render } from "preact";
+import { hydrate, prerender as ssr } from "preact-iso";
 import "./index.css";
 import { App } from "./App.tsx";
 
-const root = document.getElementById("root");
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-render(<App />, root!);
+if (typeof window !== "undefined") {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const root = document.getElementById("root")!;
+  hydrate(<App />, root);
+}
+
+export async function prerender() {
+  return await ssr(<App />);
+}

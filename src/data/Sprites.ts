@@ -899,10 +899,9 @@ export const sheetData: SpriteSheet[] = [
   },
 ];
 const spriteList = sheetData.flatMap((sheet) => {
-  const imageUrl = new URL(
-    `../assets/img/${sheet.image.location}`,
-    import.meta.url,
-  ).href;
+  const imageUrl = import.meta.env.SSR
+    ? `/assets/img/${sheet.image.location}`
+    : new URL(`../assets/img/${sheet.image.location}`, import.meta.url).href;
   return sheet.sprites.map((sprite) => ({
     sprite,
     image: sheet.image,
