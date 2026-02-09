@@ -28,7 +28,7 @@ export const ItemEvoTable = ({ items }: ItemEvoTableProps) => {
           {filtered.map((item) => (
             <th>
               <div class="item-icon-cell">
-                <ItemIcon item={item} />
+                <ItemIcon item={item} showPopover />
               </div>
             </th>
           ))}
@@ -37,7 +37,7 @@ export const ItemEvoTable = ({ items }: ItemEvoTableProps) => {
           <tr>
             <th style="position: sticky; left: 0">
               <div class="item-icon-cell">
-                <ItemIcon item={row} />
+                <ItemIcon item={row} showPopover />
               </div>
             </th>
             {filtered.map((column) => {
@@ -47,7 +47,7 @@ export const ItemEvoTable = ({ items }: ItemEvoTableProps) => {
                 <td>
                   {item && (
                     <div class="item-icon-cell">
-                      <ItemIcon item={item} />
+                      <ItemIcon item={item} showPopover />
                     </div>
                   )}
                 </td>

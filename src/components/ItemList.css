@@ -1,4 +1,7 @@
-.item-list {
-  max-height: 80vh;
-  overflow: auto;
+th.sortable {
+  cursor: pointer;
+}
+
+th {
+  user-select: none;
 }

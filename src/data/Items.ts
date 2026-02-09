@@ -13,6 +13,7 @@ export type Item = RawItem<ItemId> & {
   synergizesWith: Evolution[];
   /** Item is the result of these */
   evolvesFrom: Evolution[];
+  maxEvoDepth: number;
 };
 
 // Items with sprites
@@ -38,6 +39,7 @@ export const items = itemData
       spriteImageUrl: imageUrl,
       evolvesFrom: [],
       synergizesWith: [],
+      maxEvoDepth: 0,
     } as Item;
   })
   .filter(filterTruthy);
@@ -73,10 +75,6 @@ export const evolutions = evolutionData
   })
   .filter(filterTruthy);
 
-const evolutionDict = groupBy(evolutions, (evo) => evo.result.type);
-export const ballEvolutions = evolutionDict.get("ball") ?? [];
-export const passiveEvolutions = evolutionDict.get("passive") ?? [];
-
 export const synergizesWith = new ArrayDict<Item, Evolution>();
 evolutions.forEach((evo) =>
   evo.items.forEach((item) => synergizesWith.add(item, evo)),
@@ -84,10 +82,24 @@ evolutions.forEach((evo) =>
 export const evolvesFrom = new ArrayDict<Item, Evolution>();
 evolutions.forEach((evo) => evolvesFrom.add(evo.result, evo));
 
+const calcMaxEvoDepth = (item: Item): number => {
+  return (item.maxEvoDepth ||=
+    1 +
+    item.evolvesFrom
+      .flatMap((evo) => evo.items)
+      .reduce((total, item) => Math.max(total, calcMaxEvoDepth(item)), 0));
+};
+
 items.forEach((item) => {
   item.evolvesFrom = evolvesFrom.get(item) ?? [];
   item.synergizesWith = synergizesWith.get(item) ?? [];
 });
+items.forEach((item) => {
+  item.maxEvoDepth ||= calcMaxEvoDepth(item);
+});
+items.sort((a, b) => a.maxEvoDepth - b.maxEvoDepth);
+balls.sort((a, b) => a.maxEvoDepth - b.maxEvoDepth);
+passives.sort((a, b) => a.maxEvoDepth - b.maxEvoDepth);
 
 export const evolutionsFromItem = (item: Item) => [
   ...item.evolvesFrom,

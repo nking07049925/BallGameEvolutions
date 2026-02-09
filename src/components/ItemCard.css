@@ -1,15 +1,16 @@
 .item-card {
+  font-size: 1em;
   display: inline-flex;
   flex-direction: column;
-  padding: 8px;
   width: 100%;
   min-width: 250px;
+  max-width: 350px;
 }
 
 .item-card-title {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
   background-color: var(--bg-title);
   margin: 0;
   padding: 16px;
@@ -18,6 +19,7 @@
 .item-card-content {
   padding: 16px;
   background-color: var(--bg-half-elevated);
+  white-space: break-spaces;
 }
 
 .item-card .item-evo-list {
