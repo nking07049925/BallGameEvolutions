@@ -91,7 +91,7 @@ const routesForNav = links
 const randomBall = balls[Math.floor(Math.random() * balls.length)];
 
 export const App = () => (
-  <Router base={import.meta.env.BASE_URL} hook={useHashLocation}>
+  <Router hook={useHashLocation}>
     <header class="title">
       <h1 style="display: flex; gap: 16px">
         <ItemIcon item={randomBall} size={64} />
