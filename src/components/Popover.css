@@ -3,6 +3,9 @@
   display: inline-block;
 }
 
+.popover-trigger {
+}
+
 .popover-content {
   position: absolute;
   top: 100%;

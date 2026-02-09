@@ -1,4 +1,4 @@
-import type { ComponentChildren } from "preact";
+import type { ComponentChildren, CSSProperties } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
 import "./Popover.css";
 
@@ -7,6 +7,9 @@ export type PopoverProps = {
   content: ComponentChildren;
   enterDelay?: number;
   leaveDelay?: number;
+  containerStyle?: string | CSSProperties;
+  triggerStyle?: string | CSSProperties;
+  contentStyle?: string | CSSProperties;
 };
 
 export const Popover = ({
@@ -14,6 +17,9 @@ export const Popover = ({
   content,
   enterDelay,
   leaveDelay,
+  containerStyle,
+  contentStyle,
+  triggerStyle,
 }: PopoverProps) => {
   enterDelay ??= 300;
   leaveDelay ??= 100;
@@ -74,14 +80,16 @@ export const Popover = ({
   }, []);
 
   return (
-    <div className="popover-container">
+    <div className="popover-container" style={containerStyle}>
       <div
         ref={triggerRef}
+        class="popover-trigger"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         aria-haspopup="true"
         aria-expanded={isVisible}
         aria-controls="popover-content"
+        style={triggerStyle}
       >
         {children}
       </div>
@@ -91,9 +99,10 @@ export const Popover = ({
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           ref={popoverRef}
-          className="popover-content"
+          class="popover-content"
           role="dialog"
           aria-modal="true"
+          style={contentStyle}
         >
           {content}
         </div>
