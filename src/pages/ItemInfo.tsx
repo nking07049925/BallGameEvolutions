@@ -13,14 +13,14 @@ export type ItemInfoProps = {
 
 export const ItemInfo = ({ item }: ItemInfoProps) => {
   if (!item) return <h2>Invalid Item...</h2>;
-  const isBoring = !item.evolvesFrom.length && !item.synergizesWith.length;
+  // const isBoring = !item.evolvesFrom.length && !item.synergizesWith.length;
 
   return (
     <>
       <div style="width: min-content; min-width: 250px">
         <ItemCard item={item} />
       </div>
-      {!isBoring && <ItemEvoTable items={[item]} />}
+      {/* {!isBoring && <ItemEvoTable items={[item]} />} */}
     </>
   );
 };
