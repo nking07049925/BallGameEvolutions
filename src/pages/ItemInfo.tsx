@@ -1,6 +1,6 @@
 import { ItemCard } from "../components/ItemCard";
 import { type Item } from "../data/Items";
-import { ItemEvoTable } from "../components/ItemEvoTable";
+// import { ItemEvoTable } from "../components/ItemEvoTable";
 
 export type ItemInfoProps = {
   item?: Item;
