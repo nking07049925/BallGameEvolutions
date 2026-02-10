@@ -12,7 +12,7 @@ export const ItemEvoListGrouped = ({ items }: ItemEvoListGroupedProps) => {
   return (
     <div class="item-evo-grouped">
       {filtered.map((item) => (
-        <ItemCard item={item} />
+        <ItemCard item={item} style="padding: 8px" />
       ))}
     </div>
   );
