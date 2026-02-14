@@ -13,6 +13,21 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+#popover-root {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+  z-index: 100;
+  pointer-events: none;
+}
+
+#popover-root * {
+  pointer-events: auto;
+}
+
 a {
   text-decoration: inherit;
   font-weight: 500;
@@ -37,6 +52,8 @@ body {
   --bg-elevated: #1b1b1b;
   --bg-title: #161616;
   --font-color: #ffffffde;
+
+  position: relative;
 }
 
 @media (prefers-color-scheme: light) {

@@ -65,7 +65,10 @@ export const ItemIcon = ({ item, size, showPopover }: ItemIconProps) => {
   if (!showPopover || !item) return icon;
 
   return (
-    <Popover content={<ItemCard item={item} />} triggerStyle="line-height: 0">
+    <Popover
+      content={<ItemCard item={item} style="width: 300px" />}
+      triggerStyle="line-height: 0"
+    >
       {icon}
     </Popover>
   );

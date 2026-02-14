@@ -1,6 +1,9 @@
 import type { ComponentChildren, CSSProperties } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
 import "./Popover.css";
+import { createPortal } from "preact/compat";
+import { constrain } from "../util/Math";
+import { joinClassNames } from "../util/Data";
 
 export type PopoverProps = {
   children: ComponentChildren;
@@ -9,7 +12,16 @@ export type PopoverProps = {
   leaveDelay?: number;
   containerStyle?: string | CSSProperties;
   triggerStyle?: string | CSSProperties;
-  contentStyle?: string | CSSProperties;
+};
+
+type PopoverPortalProps = {
+  children: ComponentChildren;
+  root?: HTMLElement | null;
+};
+
+const PopoverPortal = ({ children, root }: PopoverPortalProps) => {
+  const popoverRoot = root ?? document.getElementById("popover-root");
+  return popoverRoot && createPortal(children, popoverRoot);
 };
 
 export const Popover = ({
@@ -18,7 +30,6 @@ export const Popover = ({
   enterDelay,
   leaveDelay,
   containerStyle,
-  contentStyle,
   triggerStyle,
 }: PopoverProps) => {
   enterDelay ??= 300;
@@ -29,6 +40,10 @@ export const Popover = ({
   const triggerRef = useRef<HTMLDivElement>(null);
   const enterTimeout = useRef<number | undefined>(undefined);
   const leaveTimeout = useRef<number | undefined>(undefined);
+
+  const [pos, setPos] = useState<
+    { top: number; left: number; overflowsRight: boolean } | undefined
+  >(undefined);
 
   const clearEnterTimeout = () => {
     if (enterTimeout.current) clearTimeout(enterTimeout.current);
@@ -54,6 +69,7 @@ export const Popover = ({
     clearAllTimeouts();
     leaveTimeout.current = setTimeout(() => {
       setVisible(false);
+      setPos(undefined);
       leaveTimeout.current = undefined;
       clearEnterTimeout();
     }, leaveDelay);
@@ -61,23 +77,32 @@ export const Popover = ({
 
   useEffect(() => clearAllTimeouts, []);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        popoverRef.current &&
-        !popoverRef.current.contains(event.target as Node) &&
-        triggerRef.current &&
-        !triggerRef.current.contains(event.target as Node)
-      ) {
-        setVisible(false); // Close the popover if clicked outside
-      }
-    };
+  const popoverRoot = document.getElementById("popover-root");
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  const borderPadding = 16;
+
+  const calcPos = () => {
+    const popoverRootRect = popoverRoot?.getBoundingClientRect();
+    const clientRect = triggerRef.current?.getBoundingClientRect();
+    const popoverHeight = popoverRef.current?.clientHeight ?? 0;
+    const popoverWidth = popoverRef.current?.clientWidth ?? 0;
+    const containerTop = -(popoverRootRect?.top ?? 0);
+    const containerWidth = popoverRootRect?.width ?? 0;
+
+    const left = constrain(
+      (clientRect?.left ?? 0) + (clientRect?.width ?? 0) / 2,
+      borderPadding,
+      containerWidth - borderPadding,
+    );
+    const top = constrain(
+      (clientRect?.top ?? 0) + (clientRect?.height ?? 0) / 2 + containerTop,
+      popoverHeight / 2 + containerTop + borderPadding,
+      containerTop + window.innerHeight - popoverHeight / 2 - borderPadding,
+    );
+
+    const overflowsRight = left > containerWidth - popoverWidth;
+    setPos({ left, top, overflowsRight });
+  };
 
   return (
     <div className="popover-container" style={containerStyle}>
@@ -94,18 +119,30 @@ export const Popover = ({
         {children}
       </div>
       {isVisible && (
-        <div
-          id="popover-content"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          ref={popoverRef}
-          class="popover-content"
-          role="dialog"
-          aria-modal="true"
-          style={contentStyle}
-        >
-          {content}
-        </div>
+        <PopoverPortal root={popoverRoot}>
+          <div
+            id="popover-content"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            ref={(ref) => {
+              popoverRef.current = ref;
+              if (!pos && ref) calcPos();
+            }}
+            class={joinClassNames(
+              "popover-content",
+              pos?.overflowsRight && "left",
+            )}
+            role="dialog"
+            aria-modal="true"
+            style={{
+              left: pos?.left ?? 0,
+              top: pos?.top ?? 0,
+              visibility: pos ? "unset" : "hidden",
+            }}
+          >
+            {content}
+          </div>
+        </PopoverPortal>
       )}
     </div>
   );

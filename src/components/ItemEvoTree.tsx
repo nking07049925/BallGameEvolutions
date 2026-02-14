@@ -91,7 +91,11 @@ const PathTree = ({ path }: { path: EvolutionPath }) => {
                   {!!spanDiff && <td colSpan={spanDiff} class="empty"></td>}
                   <td colSpan={col.span}>
                     <div class="item-icon-cell">
-                      <ItemIcon item={col.node} size={32 + 16 * col.maxDepth} />
+                      <ItemIcon
+                        item={col.node}
+                        size={32 + 16 * col.maxDepth}
+                        showPopover
+                      />
                     </div>
                   </td>
                 </>
