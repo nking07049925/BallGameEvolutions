@@ -19,7 +19,7 @@
   padding: 16px;
   background-color: var(--bg-half-elevated);
   white-space: break-spaces;
-  max-height: calc(100vh - 128px - 32px);
+  max-height: calc(100vh - 160px);
   overflow: auto;
 }
 
